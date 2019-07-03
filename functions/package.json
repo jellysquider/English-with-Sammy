@@ -4,7 +4,7 @@
   "release": "0.0.1",
   "scripts": {
     "lint": "eslint .",
-    "serve": "firebase serve --only functions --port=8000",
+    "serve": "firebase serve --port=8000",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
