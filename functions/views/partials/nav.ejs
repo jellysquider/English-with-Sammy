@@ -1,0 +1,53 @@
+<!-- navbar-->
+<header class="header">
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container"><a href="./" class="navbar-brand"><img src="img/logo.svg" alt="" class="img-fluid"></a>
+      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">Menu<i class="fa fa-bars ml-2"></i></button>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <!-- Link-->
+          <li class="nav-item"> <a href="/" class="nav-link active">Home</a></li>
+          <!-- Link-->
+          <li class="nav-item"> <a href="#features" class="nav-link">Features</a></li>
+          <!-- Link-->
+          <li class="nav-item"> <a href="#games" class="nav-link">Games</a></li>
+
+          <!-- This is when users are logged-in -->
+          <!-- <li class="nav-item dropdown"><a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Games</a>
+            <div class="dropdown-menu"><a href="/matchingPairs" class="dropdown-item">Matching Pairs</a>
+              <a href="/crosswords" class="dropdown-item">Crosswords</a>
+              <a href="/" class="dropdown-item">TBD</a>
+            </div>
+          </li> -->
+          <li class="nav-item"> <a href="#team" class="nav-link">Team</a></li>
+        </ul><a href="#" data-toggle="modal" data-target="#login" class="btn btn-primary navbar-btn ml-0 ml-lg-3">Login </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Login Modal-->
+<div id="login" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bd-example-modal-lg">
+  <div role="document" class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body p-4 p-lg-5">
+        <form action="#" class="login-form text-left">
+          <div class="form-group mb-4">
+            <label>Email address</label>
+            <input type="email" name="email" placeholder="name@company.com" class="form-control">
+          </div>
+          <div class="form-group mb-4">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Min 8 characters" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

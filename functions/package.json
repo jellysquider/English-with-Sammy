@@ -1,0 +1,39 @@
+{
+  "name": "English-with-Sammy",
+  "description": "Learning English vocabulary through fun and interactive games",
+  "release": "0.0.1",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions --port=8000",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jellysquider/English-with-Sammy/"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "ejs": "2.6.2",
+    "express": "4.16.3",
+    "firebase-admin": "^8.2.0",
+    "firebase-functions": "^3.0.2",
+    "firebase-tools": "^7.0.2"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-pro": "5.9.0",
+    "eslint": "5.12.0",
+    "eslint-plugin-promise": "4.0.1"
+  },
+  "authors": "Gabriela Medvetska, Fawaz Chaudhry, Juan Lee, Kyungmo Kim, Jonathan Huey",
+  "bugs": {
+    "url": "https://github.com/jellysquider/English-with-Sammy/issues"
+  },
+  "homepage": "https://sammy-the-lab-assistant.firebaseapp.com",
+  "private": true,
+  "main": "./index.js"
+}

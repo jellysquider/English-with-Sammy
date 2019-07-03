@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <link rel="stylesheet" href="css/style.css">
+  <style media="screen">
+    img {
+      object-fit: cover;
+      max-height: 200px;
+      width: 290px;
+    }
+
+    .btn_4 {
+      margin-right: 50px;
+    }
+
+    /*
+    *
+    * ==========================================
+    * CUSTOM UTIL CLASSES
+    * ==========================================
+    *
+    */
+
+    .form-control:focus {
+      box-shadow: none;
+    }
+
+    .form-control-underlined {
+      border-width: 0;
+      border-bottom-width: 1px;
+      border-radius: 0;
+      padding-left: 0;
+    }
+
+    /*
+    *
+    * ==========================================
+    * FOR DEMO PURPOSE
+    * ==========================================
+    *
+    */
+
+    .form-control::placeholder {
+      font-size: 0.95rem;
+      color: #aaa;
+      font-style: italic;
+    }
+
+
+    .portfolio-area .filters {
+      text-align: center;
+    }
+
+    .portfolio-area .filters ul {
+      padding: 0;
+    }
+
+    .portfolio-area .filters ul li {
+      list-style: none;
+      display: inline-block;
+      padding: 18px 15px;
+      cursor: pointer;
+      position: relative;
+      text-transform: uppercase;
+      color: #222;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 736px) {
+      .portfolio-area .filters ul li {
+        padding: 6px 6px;
+      }
+    }
+
+    .portfolio-area .filters ul li:after {
+      content: "";
+      display: block;
+      width: calc(0% - 60px);
+      position: absolute;
+      height: 2px;
+      background: #333;
+      transition: width 350ms ease-out;
+    }
+
+    .portfolio-area .filters ul li:hover:after {
+      width: calc(100% - 60px);
+      transition: width 350ms ease-out;
+    }
+
+    .portfolio-area .filters ul li.active {
+      color: #8490ff;
+    }
+
+    .portfolio-area .filters-content {
+      margin-top: 50px;
+    }
+
+    .portfolio-area .filters-content .show {
+      opacity: 1;
+      visibility: visible;
+      transition: all 350ms;
+    }
+
+    .portfolio-area .filters-content .hide {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 350ms;
+    }
+
+    .portfolio-area .filters-content .item {
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    .portfolio-area .filters-content .item img {
+      border-radius: 10px;
+    }
+
+    .portfolio-area .filters-content .p-inner {
+      padding: 20px 0px;
+      text-align: center;
+    }
+
+    .portfolio-area .filters-content .item .p-inner .cat {
+      font-size: 13px;
+    }
+
+    .portfolio-area .filters-content .item img {
+      width: 100%;
+    }
+  </style>
+
+  <div class="filters">
+      <ul>
+          <li class="active" data-filter="*">All</li>
+          <li data-filter=".matchingPairs">Matching Pairs</li>
+          <li data-filter=".crossword">Crossword</li>
+          <li data-filter=".wordSearch">Word Search</li>
+      </ul>
+  </div>
+
+  <script type="text/javascript">
+  //------- Filter  js --------//
+
+    $('.filters ul li').click(function(){
+      $('.filters ul li').removeClass('active');
+      $(this).addClass('active');
+
+      var data = $(this).attr('data-filter');
+      $grid.isotope({
+        filter: data
+      })
+    });
+
+
+    if(document.getElementById("special_cource")){
+          var $grid = $(".grid").isotope({
+            itemSelector: ".all",
+            percentPosition: true,
+            masonry: {
+              columnWidth: ".all"
+            }
+          })
+    };
+  </script>
+
+
+    <!--::review_part start::-->
+    <section class="special_cource padding_top">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5">
+                    <div class="section_tittle text-center">
+                        <h2>Vocabulary Games</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+              <div class="col-lg-8 mx-auto">
+                  <!-- Custom rounded search bar with input group -->
+                  <form action="">
+                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                      <div class="input-group">
+                        <input type="search" placeholder="What would you like to practice?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                        <div class="input-group-append">
+                          <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="single_special_cource">
+                        <img src="img/fruits.jpg" class="special_img" alt="">
+                        <div class="special_cource_text">
+                            <a href="/mPairs" class="btn_4">Matching Pairs</a>
+                            <a href="course-details.html"><h3>Vegetables</h3></a>
+                            <p>Learn vocabulary related to vegetables such as carrots, peppers, cucumbers, etc.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="single_special_cource">
+                        <img src="img/fruits2.jpg" class="special_img" alt="">
+                        <div class="special_cource_text">
+                            <a href="/Crosswords" class="btn_4">Crossword</a>
+                            <a href="course-details.html"><h3>Vegetables</h3></a>
+                            <p>Learn words such as banana, raspberry, watermelon, orange, etc.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="single_special_cource">
+                        <img src="img/deer.jpg" class="special_img" alt="">
+                        <div class="special_cource_text">
+                            <a href="course-details.html" class="btn_4">Word Search</a>
+                            <a href="course-details.html"><h3>Vegetables</h3></a>
+                            <p>Learn words related to animals such as dog, cat, deer, lion, etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--::blog_part end::-->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright_part_text text-center">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer part end-->
+
+    <!-- jquery plugins here-->
+    <!-- jquery -->
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="js/swiper.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+</body>
+
+</html>
