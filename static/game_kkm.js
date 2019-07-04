@@ -1,30 +1,32 @@
-var collection = [
-    "apple",
-    "ball",
-    "cat",
-    "mango",
-    "tango",
-    "typer",
-    "monitor",
-    "program",
-    "application",
-    "keyboard",
-    "javascript",
-    "network",
-    "possible",
-    "pikachu",
-    "star-lord",
-    "one-to-one",
-    "5422",
-    "python",
-    "nepal",
-    "document",
-    "this",
-    "we",
-    "pineapple",
-    "marvelous",
-    "mint"
-];
+// var collection = [
+//     "apple",
+//     "ball",
+//     "cat",
+//     "mango",
+//     "tango",
+//     "typer",
+//     "monitor",
+//     "program",
+//     "application",
+//     "keyboard",
+//     "javascript",
+//     "network",
+//     "possible",
+//     "pikachu",
+//     "star-lord",
+//     "one-to-one",
+//     "5422",
+//     "python",
+//     "nepal",
+//     "document",
+//     "this",
+//     "we",
+//     "pineapple",
+//     "marvelous",
+//     "mint"
+// ];
+
+var collection = ['apple', 'mango', 'orange' , 'pineapple', 'pumpkin']
 //var collection = ['apple','ball','cat'];
 
 var easyMode = false;
@@ -166,6 +168,7 @@ function fillC2Timer() {
 function fillC1() {
     let word = document.createElement("span");
     word.innerHTML = arr1[arr1Pointer];
+    word.innerHTML = `<img src = "image/${arr1[arr1Pointer]}.jpg" height = 80px>`
     word.style.animation =
         "floater " + (endAt / 1000).toFixed(2) + "s linear forwards";
     word.id = "word-" + "1-" + arr1Pointer;
