@@ -2,7 +2,7 @@ body,
 html {
     padding: 0;
     margin: 0;
-    background: #dedede;
+    background: #00a6a6;
     font-family: Arial;
     letter-spacing: 3px;
 }
@@ -19,6 +19,8 @@ html {
     text-align: center;
     height: 150px;
     overflow: auto;
+    font-family: 'Bahianita', cursive;
+    font-size: 18px;
 }
 
 .title_bar h1 {
@@ -42,24 +44,26 @@ html {
     padding: 20px 50px;
     height: 50px;
     width: 50px;
-    background: salmon;
+    background: #efca08;
     text-align: center;
-    border: 2px solid #323232;
+    border: 2px solid #fa9f0a;
     color: white;
     font-size: 3em;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Luckiest Guy', cursive;
+
 }
 
 .typing.new {
-    outline: 4px solid brown;
+    outline: 4px solid #00a6a6;
 }
 
 .slider_top,
 .slider_bottom {
     width: 100%;
-    background: #acacac;
+    background: #39e6ef;
     color: black;
     padding: 8px 0;
     font-size: 1.3em;
@@ -130,4 +134,14 @@ html {
     text-align: center;
     display: inline;
     margin-top: -50px;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+#main_title {
+    font-family: 'Barriecito', cursive;
+}
+
+.typing_word {
+    font-family: 'Luckiest Guy', cursive;
+
 }

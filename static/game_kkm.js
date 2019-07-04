@@ -1,32 +1,32 @@
-// var collection = [
-//     "apple",
-//     "ball",
-//     "cat",
-//     "mango",
-//     "tango",
-//     "typer",
-//     "monitor",
-//     "program",
-//     "application",
-//     "keyboard",
-//     "javascript",
-//     "network",
-//     "possible",
-//     "pikachu",
-//     "star-lord",
-//     "one-to-one",
-//     "5422",
-//     "python",
-//     "nepal",
-//     "document",
-//     "this",
-//     "we",
-//     "pineapple",
-//     "marvelous",
-//     "mint"
-// ];
+var collection = [
+    "apple",
+    "ball",
+    "cat",
+    "mango",
+    "tango",
+    "typer",
+    "monitor",
+    "program",
+    "application",
+    "keyboard",
+    "javascript",
+    "network",
+    "possible",
+    "pikachu",
+    "star-lord",
+    "one-to-one",
+    "5422",
+    "python",
+    "nepal",
+    "document",
+    "this",
+    "we",
+    "pineapple",
+    "marvelous",
+    "mint"
+];
 
-var collection = ['apple', 'mango', 'orange' , 'pineapple', 'pumpkin']
+//var collection = ['apple', 'mango', 'orange' , 'pineapple', 'pumpkin']
 //var collection = ['apple','ball','cat'];
 
 var easyMode = false;
@@ -64,6 +64,11 @@ var arr2 = [];
 var arr2Pointer = 0;
 
 let sound = new Audio();
+
+let damaged_sount = new Audio('sound/damaged_sound.mp3');
+
+let heart_bar = document.getElementById("life_bar")
+
 
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -146,11 +151,11 @@ function startGame(evt) {
     sound.autoplay = true;
     sound.play();
 
-    c1.parentElement.style.background = "#ACACAC";
+    c1.parentElement.style.background = "#39e6ef";
     c1.parentElement.style.cursor = "initial";
     c1.parentElement.title = "";
 
-    c2.parentElement.style.background = "#ACACAC";
+    c2.parentElement.style.background = "#39e6ef";
     c2.parentElement.style.cursor = "initial";
     c2.parentElement.title = "";
 }
@@ -168,31 +173,35 @@ function fillC2Timer() {
 function fillC1() {
     let word = document.createElement("span");
     word.innerHTML = arr1[arr1Pointer];
-    word.innerHTML = `<img src = "image/${arr1[arr1Pointer]}.jpg" height = 80px>`
+    //word.innerHTML = `<img src = "image/${arr1[arr1Pointer]}.jpg" height = 80px>`
     word.style.animation =
         "floater " + (endAt / 1000).toFixed(2) + "s linear forwards";
     word.id = "word-" + "1-" + arr1Pointer;
+    word.classList.add("typing_word");
     c1.appendChild(word);
 
     let ap = arr1Pointer;
     setTimeout(function() {
 
-        if(arr1[ap]!=""){
+        if(arr1[ap]!=""){ // when user missed the typing
             missed_word_count++;
-            let heart_bar = document.getElementById("life_bar")
-            heart_bar.removeChild(heart_bar.firstChild)
-            console.log(`total ${missed_word_count} number of words missed `)
+
+            heart_bar.removeChild(heart_bar.lastChild)
+
+            damaged_sount.play();
+
         }
 
         arr1[ap] = "";
         word.innerHTML = "";
-    }, endAt + 200);
+    }, endAt);
 
     arr1Pointer++;
 
     if (missed_word_count >= 3){
         clearInterval(c1FillerTimer);
         resetC1();
+        resetAll();
         // setTimeout(function() {
         //     resetC1();
         // }, endAt + 200);
@@ -216,7 +225,7 @@ function fillC1() {
         clearInterval(c1FillerTimer);
         setTimeout(function() {
             resetC1();
-        }, endAt + 200);
+        }, endAt+200);
     }
 }
 
@@ -226,25 +235,28 @@ function fillC2() {
     word.style.animation =
         "floater " + (endAt / 1000).toFixed(2) + "s linear forwards";
     word.id = "word-" + "2-" + arr2Pointer;
+    word.classList.add("typing_word");
     c2.appendChild(word);
 
     let ap = arr2Pointer;
     setTimeout(function() {
         if (arr2[ap]!=""){
             missed_word_count++;
-            let heart_bar = document.getElementById("life_bar")
-            heart_bar.removeChild(heart_bar.firstChild)
-            console.log(`total ${missed_word_count} number of words missed `)
+
+            heart_bar.removeChild(heart_bar.lastChild)
+
+            damaged_sount.play();
         }
         arr2[ap] = "";
         word.innerHTML = "";
-    }, endAt + 200);
+    }, endAt);
 
     arr2Pointer++;
 
     if (missed_word_count >= 3){
         clearInterval(c2FillerTimer);
         resetC2();
+        resetAll();
         // setTimeout(function() {
         //     resetC2();
         // }, endAt + 200);
@@ -343,9 +355,12 @@ function resetAll() {
     c1.parentElement.style.cursor = "initial";
     c1.parentElement.title = "";
 
+    c1.innerHTML = "";
+
     c2.parentElement.style.background = "#ACACAC";
     c2.parentElement.style.cursor = "initial";
     c2.parentElement.title = "";
+    c2.innerHTML = "";
 
     document.getElementById("easyMode").parentElement.style.display = "initial";
 
@@ -357,6 +372,10 @@ function resetAll() {
 
     let heart_bar = document.getElementById("life_bar");
     heart_bar.innerHTML = '';
+
+    setTimeout(function(){
+        location.reload();
+    },2000);
 }
 
 function typeTrack(evt) {
