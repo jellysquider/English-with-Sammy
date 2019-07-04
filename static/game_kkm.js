@@ -116,6 +116,16 @@ function fillAndShuffleArray() {
 }
 
 function startGame(evt) {
+    console.log("game start")
+
+    let heart_bar = document.getElementById("life_bar")
+    let heart = `<img src = 'image/heart_icon.png' width = 100px>`
+
+    for (let k = 0; k < 3; k ++){
+        heart_bar.insertAdjacentHTML('beforeend',heart);
+    }
+
+
     playBtn.removeEventListener("click", startGame);
     playBtn.style.display = "none";
     document.getElementById("easyMode").parentElement.style.display = "none";
@@ -166,6 +176,8 @@ function fillC1() {
 
         if(arr1[ap]!=""){
             missed_word_count++;
+            let heart_bar = document.getElementById("life_bar")
+            heart_bar.removeChild(heart_bar.firstChild)
             console.log(`total ${missed_word_count} number of words missed `)
         }
 
@@ -217,6 +229,8 @@ function fillC2() {
     setTimeout(function() {
         if (arr2[ap]!=""){
             missed_word_count++;
+            let heart_bar = document.getElementById("life_bar")
+            heart_bar.removeChild(heart_bar.firstChild)
             console.log(`total ${missed_word_count} number of words missed `)
         }
         arr2[ap] = "";
@@ -337,6 +351,9 @@ function resetAll() {
     sound.play();
 
     missed_word_count = 0
+
+    let heart_bar = document.getElementById("life_bar");
+    heart_bar.innerHTML = '';
 }
 
 function typeTrack(evt) {
