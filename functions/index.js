@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 // The / and /home routes need to be edited in Sprint 3 so that users who are logged in
 // are redirected to the dashboard.ejs and those that are not to index.js
+app.get('', (req, res) => res.render('pages/index.ejs'));
 app.get('/', (req, res) => res.render('pages/index.ejs'));
 app.get('/home', (req, res) => res.render('pages/index.ejs'));
 app.get('/dashboard', (req, res) => res.render('pages/dashboard.ejs'));
