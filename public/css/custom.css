@@ -1,1 +1,71 @@
-/* your styles go here */
+
+  .grid {
+    margin: 0 auto;
+  }
+
+  .card:hover, .card:active, .card:focus  {
+    transform: translateY(-5px);
+    /* transition-timing-function: ease; */
+    transition: all 0.2s;
+    border: 2px solid #17a2b8;
+    border-radius: .25rem;
+  }
+
+  .grid a {
+    color:inherit;
+  }
+
+  img {
+    object-fit: cover;
+    max-height: 200px;
+    width: 290px;
+  }
+
+
+
+
+   .filters {
+    text-align: center;
+  }
+
+   .filters ul {
+    padding: 0;
+    margin: 0;
+  }
+
+   .filters ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 18px 15px;
+    cursor: pointer;
+    position: relative;
+    text-transform: uppercase;
+    color: #222;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 736px) {
+     .filters ul li {
+      padding: 6px 6px;
+    }
+  }
+
+   .filters ul li:after {
+    content: "";
+    display: block;
+    width: calc(0% - 60px);
+    position: absolute;
+    height: 2px;
+    background: #333;
+    transition: width 350ms ease-out;
+  }
+
+   .filters ul li:hover:after {
+    width: calc(100% - 60px);
+    transition: width 350ms ease-out;
+  }
+
+   .filters ul li.active {
+    color: #8490ff;
+  }

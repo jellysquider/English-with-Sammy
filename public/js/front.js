@@ -46,6 +46,32 @@ $(function () {
 
     });
 
+    //------- Filter  js --------//
+
+      $('.filters ul li').click(function(){
+        $('.filters ul li').removeClass('active');
+        $(this).addClass('active');
+
+        var data = $(this).attr('data-filter');
+        $grid.isotope({
+          filter: data
+        })
+      });
+
+
+      if(document.getElementById("vocabularyGames")){
+            var $grid = $(".grid").isotope({
+              itemSelector: ".all",
+              layoutMode: "masonry",
+              // percentPosition: true,
+              masonry: {
+                columnWidth: ".all",
+                fitWidth: true,
+                gutter: 20
+              }
+            })
+      };
+
 
     // =====================================================
     //      PREVENTING URL UPDATE ON NAVIGATION LINK
