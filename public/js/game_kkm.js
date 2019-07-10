@@ -26,8 +26,20 @@ var collection = [
     "mint"
 ];
 
+const config = {
+    apiKey: "AIzaSyAWCffYBhhwfmwao-gkgg_3f86bErtpHj0",
+    authDomain: "english-with-sammy.firebaseapp.com",
+    databaseURL: "https://english-with-sammy.firebaseio.com",
+    projectId: "english-with-sammy",
+    storageBucket: "",
+    messagingSenderId: "938824486935",
+    appId: "1:938824486935:web:86652c039bb3a069"
+};
+
+firebase.initializeApp(config);
 //var collection = ['apple', 'mango', 'orange' , 'pineapple', 'pumpkin']
 //var collection = ['apple','ball','cat'];
+
 
 var easyMode = false;
 var score = 0;
@@ -68,6 +80,30 @@ let sound = new Audio();
 let damaged_sount = new Audio('../../../public/sound/damaged_sound.mp3');
 
 let heart_bar = document.getElementById("life_bar")
+
+function readFromDatabase() {
+    return firebase.database().ref('/Categories').on('value', function(snapshot) {
+        // initializeTable();
+        let all_words_in_database = [];
+
+        let myValue = snapshot.val();
+
+        for (let i in myValue){
+            for (let j in myValue[i]){
+                all_words_in_database.push(j);
+
+            }
+
+        }
+        console.log(all_words_in_database)
+        collection = all_words_in_database;
+        fillAndShuffleArray();
+
+
+    });
+}
+
+readFromDatabase();
 
 
 function shuffle(arr) {
