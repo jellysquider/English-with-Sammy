@@ -65,7 +65,7 @@ var arr2Pointer = 0;
 
 let sound = new Audio();
 
-let damaged_sount = new Audio('sound/damaged_sound.mp3');
+let damaged_sount = new Audio('../../../public/sound/damaged_sound.mp3');
 
 let heart_bar = document.getElementById("life_bar")
 
@@ -126,7 +126,7 @@ function startGame(evt) {
     console.log("game start")
 
     let heart_bar = document.getElementById("life_bar")
-    let heart = `<img src = 'image/heart_icon.png' width = 100px>`
+    let heart = `<img src = '../../../public/img/heart_icon.png' width = 100px>`
 
     for (let k = 0; k < 3; k ++){
         heart_bar.insertAdjacentHTML('beforeend',heart);
