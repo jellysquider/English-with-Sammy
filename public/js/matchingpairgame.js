@@ -328,6 +328,7 @@ var words = document.querySelectorAll('#words .word2');
 
     word.addEventListener('drop', handleDrop, false);
 
+
 });
 
 var words = document.querySelectorAll('#words .word3');
