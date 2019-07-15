@@ -446,7 +446,7 @@ function typeTrack(evt) {
 function typeCheck() {
     for (let i = 0; i < arr1Pointer; i++) {
         //comapre slice of oldKeys to length of this word with this word //
-        if (arr1[i] == oldKeysArray.slice(-arr1[i].length).join("")) {
+        if (arr1[i].toLowerCase() == (oldKeysArray.slice(-arr1[i].length).join("")).toLowerCase()) {
             // Update Score
             score += arr1[i].length;
             document.getElementById("score").innerHTML = score;
@@ -472,7 +472,7 @@ function typeCheck() {
     if (!easyMode) {
         for (let i = 0; i < arr2Pointer; i++) {
             //comapre slice of oldKeys to length of this word with this word //
-            if (arr2[i] == oldKeysArray.slice(-arr2[i].length).join("")) {
+            if (arr2[i].toLowerCase() == (oldKeysArray.slice(-arr2[i].length).join("")).toLowerCase()) {
                 // Update Score
                 score += arr2[i].length;
                 document.getElementById("score").innerHTML = score;
