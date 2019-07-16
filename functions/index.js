@@ -28,6 +28,7 @@ app.get('/dashboard', (req, res) => res.render('pages/dashboard.ejs'));
 app.get('/games', (req, res) => res.render('pages/games.ejs'));
 app.get('/matchingPairs', (req, res) => res.render('pages/games/mPairs.ejs'));
 app.get('/matchingLetters', (req, res) => res.render('pages/games/mLetters.ejs'));
+app.get('/typing', (req, res) => res.render('pages/games/game_kkm.ejs'));
 
 // Sprint 2 functionality
 app.get('/crosswords', (req, res) => res.render('pages/games/crosswords.ejs'));

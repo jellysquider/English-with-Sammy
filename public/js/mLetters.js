@@ -38,88 +38,78 @@ function readFromDatabase() {
         }
         console.log(all_words_in_database)
         collection = all_words_in_database;
-
-
         createDragBoxes();
-
-
     });
 }
 
-readFromDatabase();
 
 var b = 0;
 var count = 0;
+var seen = new Array();
 
+readFromDatabase();
 function createDragBoxes() {
 
+  console.log("createDragBoxes()")
   wordIndex = Math.floor(Math.random() * collection.length);
   var word = collection[wordIndex];
+  getDatabasePictures(word);
+
+  if(seen.includes(word)) {
+    return createDragBoxes();
+  }
+  seen.push(word);
   console.log("word: ", collection[wordIndex])
-  //console.log("word_index ", wordIndex);
-  createLetterDragBoxes(wordIndex, collection);
+  console.log("hello")
 
-  function createLetterDragBoxes(wordIndex, collection) {
-    // var h = document.createElement("H1")                // Create a <h1> element
-    // var t = document.createTextNode("Hello World");     // Create a text node
-    // h.appendChild(t);                                   // Append the text to
+  wordShuffle = word.shuffle();
+  console.log("shuffled: " + wordShuffle);
+  wordLength =  collection[wordIndex].length;
+  count = wordLength;
 
-    console.log("hello")
+  console.log("word length" + wordLength);
+  for (let i = 0; i < wordLength; i++) {
+    letter = wordShuffle.charAt(i);
+    //console.log("letter ", letter);
+    letterDragBox = document.createElement("div");
+    letterDragBox.setAttribute("class", "drag-box");
+    letterDragBox.setAttribute('ondrop', "drop(event)");
+    letterDragBox.id = "drag-box" + i;
+    letterDragBox.setAttribute('ondragstart', "dragStart(event)");
+    letterDragBox.setAttribute("draggable", "true");
+    letterDragBox.innerHTML = letter.toUpperCase();
+    //dragBox.appendChild(letterDragBox);
+    document.getElementById("drag-boxes").appendChild(letterDragBox);
 
-    wordShuffle = word.shuffle();
-    console.log("shuffled: " + wordShuffle);
-    wordLength =  collection[wordIndex].length;
-    count = wordLength;
-
-    console.log("word length" + wordLength);
-    for (let i = 0; i < wordLength; i++) {
-      letter = wordShuffle.charAt(i);
-      //console.log("letter ", letter);
-      letterDragBox = document.createElement("div");
-      letterDragBox.setAttribute("class", "drag-box");
-      letterDragBox.setAttribute('ondrop', "drop(event)");
-      letterDragBox.id = "drag-box" + i;
-      //letterDragBox = document.createElement("text");
-      //console.log("Box ", letterDragBox);
-      //letterDragBox.id = "target-box" + i;
-      letterDragBox.setAttribute('ondragstart', "dragStart(event)");
-      letterDragBox.setAttribute("draggable", "true");
-      letterDragBox.innerHTML = letter.toUpperCase();
-      //dragBox.appendChild(letterDragBox);
-      document.getElementById("drag-boxes").appendChild(letterDragBox);
-
-      // <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
-
-      acceptingBox = document.createElement("div");
-      acceptingBox.setAttribute("class", "drag-box");
-      acceptingBox.setAttribute('ondrop', "actualDrop(event)");
-      acceptingBox.setAttribute('ondragover', "allowDrop(event)");
-      acceptingBox.id = "b:" + word.toUpperCase().charAt(i);
-      document.getElementById("drop-boxes").appendChild(acceptingBox);
+    acceptingBox = document.createElement("div");
+    acceptingBox.setAttribute("class", "drag-box");
+    acceptingBox.setAttribute('ondrop', "actualDrop(event)");
+    acceptingBox.setAttribute('ondragover', "allowDrop(event)");
+    acceptingBox.id = "b:" + word.toUpperCase().charAt(i);
+    document.getElementById("drop-boxes").appendChild(acceptingBox);
 
     }
-  }
+}
 
-
+function getDatabasePictures(word) {
+  databasePictures = []
   getAttributes = rootRef.child(word);
   getAttributes.once("value", function(snapshot) {
     snapshot.forEach(function(childAttr) {
       //console.log(childAttr.key + ": " + childAttr.val());
       if (childAttr.key.includes("img")) {
-        console.log(childAttr.key + ": " + childAttr.val());
-        document.getElementById("matchPicture").setAttribute("src", childAttr.val())
+        databasePictures.push(childAttr.val());
+        //console.log("databasePictures: " + databasePictures);
       }
-
       });
     });
-
-  //imgLink = collection[wordIndex].child("img");
-  // console.log("img link ", imgLink)
-  //document.getElementById("matchPicture").setAttribute("src", )
-
+    wordPictureTag = document.createElement("img");
+    randomPicture = databasePictures[Math.floor(Math.random()*databasePictures.length)];
+    //console.log("randomPicture: " + randomPicture);
+    wordPictureTag.setAttribute("class", "mx-auto my-5 d-block letterPic");
+    wordPictureTag.setAttribute("src", randomPicture);
+    document.getElementById("letter-picture").appendChild(wordPictureTag);
 }
-
-
 
 function dragStart(event) {
   console.log(event)
@@ -155,8 +145,33 @@ function drop(event) {
   event.preventDefault();
 }
 
-function submit001() {
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function submit001() {
   if (b == count) {
   message001.innerHTML = "Congratulations!";
+
+  await sleep(1000);
+
+  b = 0;
+  count = 0;
+  score001.innerHTML = 0;
+
+  var myNode = document.getElementById("drag-boxes");
+  while (myNode.firstChild) {
+      myNode.removeChild(myNode.firstChild);
+  }
+
+  var myNode = document.getElementById("drop-boxes");
+  while (myNode.firstChild) {
+      myNode.removeChild(myNode.firstChild);
+  }
+
+  createDragBoxes();
+
+  message001.innerHTML = "";
+
   }
 }

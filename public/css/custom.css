@@ -15,7 +15,7 @@
     color:inherit;
   }
 
-  img {
+  .games img {
     object-fit: cover;
     max-height: 200px;
   }
