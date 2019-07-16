@@ -41,6 +41,7 @@ function WordObj(stringValue, i){
 // - The only code runs directly from the Javascript
 $(() => {
     init();
+    registerEvents();
 
     setBoard();
 })
@@ -67,9 +68,9 @@ function init(){
 // - Read data from DB
 // - Generate crossword
 
-// function setBoard: void -> void
+// function setBoard: boolean -> void
 // - set the Crossword board on HTML
-function setBoard(){
+function setBoard(image_mode){
     var parser = document.createElement('a'); // parse URL
     parser.href = window.location.href;
     var category = parser.search.split("=")[1];
@@ -94,9 +95,37 @@ function setBoard(){
             addBoardIndex();
 
             // Add Hints
-            addHints(snapshot.val());
+            if(image_mode)  addImages(snapshot.val());
+            else addHints(snapshot.val());
         }
     })
+}
+
+// function setBoard: boolean -> void
+// - set the Crossword board on HTML without re-generation
+function resetBoard(image_mode){
+  var parser = document.createElement('a'); // parse URL
+  parser.href = window.location.href;
+  var category = parser.search.split("=")[1];
+  if(!category) category = "Fruits";  // default category for error handling
+
+  firebase.database().ref(`Categories/${category}/`).once('value').then(snapshot => {
+      if(snapshot.val() !== null){
+          var words = Object.keys(snapshot.val());
+          wordArr = words.map(word => word.toUpperCase());
+
+          // Make Playable
+          $("#crossword").html(generateHTML());
+          $(".letter").html("<input class='char' type='text' maxlength='1'></input>");
+
+          // Add Index
+          addBoardIndex();
+
+          // Add Hints
+          if(image_mode)  addImages(snapshot.val());
+          else addHints(snapshot.val());
+      }
+  })
 }
 
 // function generateBoardFromWords: words -> void
@@ -125,7 +154,7 @@ function addBoardIndex(){
         }
 
         $(`.row:nth-child(${y}) > .square:nth-child(${x})`).html(word.index);
-        $(`.row:nth-child(${y}) > .square:nth-child(${x})`).css("color", "white");
+        $(`.row:nth-child(${y}) > .square:nth-child(${x})`).addClass('index');
     })
 }
 
@@ -355,4 +384,151 @@ function addHints(data){
     })
 
     $(".hints").html(html);
+}
+
+// function: addImages: data -> void
+// - set images on html
+function addImages(data){
+  var keys = Object.keys(data);
+    var _data = {}
+    keys.forEach(key => {
+        _data[key.toUpperCase()] = data[key];
+    })
+    data = _data;
+
+    var hints = {}
+    wordsActive.forEach(word => {
+        hints[word.index] = data[word.string].img0;
+    })
+
+    var html = "";
+    keys = Object.keys(hints);
+    keys = keys.map(key => parseInt(key)).sort((a, b)=>{return a-b});
+
+    keys.forEach(key => {
+      html += hints[key] ? `<div class="hint-image"><div class="key"><div class="key-value">${key}</div></div><img src="${hints[key]}"></img></div>`: `<p class="hint">${key}. image does not exist</p>`;
+    })
+
+    $(".hints").html(html);
+}
+
+//==================================================
+// Answer-Related
+// - All of answer-related functions here
+
+//function: gatherAnswer: void -> void
+// - gather answer of user
+function gatherAnswer(){
+  const nRows = $(".row").length;
+  const nCols = $(".row:nth-child(1) > .square").length;
+
+  var users = [];
+  for(var row = 1; row <= nRows; row++){
+    users.push([]);
+    for(var col = 1; col <= nCols; col++){
+      if($(`.row:nth-child(${row}) > .square:nth-child(${col})`).hasClass('letter')){
+        users[row-1].push($(`.row:nth-child(${row}) > .square:nth-child(${col}) > input`).val());
+      }
+      else{
+        users[row-1].push(null);
+      }
+    }
+  }
+
+  return users;
+}
+
+//function: cheatAnswer: void -> void
+// - cheat the answers: show correct answer for 3 seconds
+function cheatAnswer(){
+  var users = gatherAnswer();
+
+  $("#crossword").html(generateHTML());
+  addBoardIndex();
+
+  $("#three").show();
+  setTimeout(() => {
+    $("#three").hide();
+    $("#two").show();
+    setTimeout(() => {
+      $("#two").hide();
+      $("#one").show();
+      setTimeout(()=>{
+        $("#one").hide();
+        $(".letter").html("<input class='char' type='text' maxlength='1'></input>");
+
+        for(var row = Bounds.top; row < Bounds.top + users.length; row++){
+          for(var col = Bounds.left; col < Bounds.left + users[0].length; col++){
+            if(users[row-Bounds.top][col-Bounds.left]){
+              $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1}) > input`).val(users[row-Bounds.top][col-Bounds.left]);
+            }
+          }
+        }
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}
+
+//function: checkAnswer: void -> void
+// - check the answers: if correct, show letter green, or, show letter red
+function checkAnswer(){
+  var users = gatherAnswer();
+
+  $("#crossword").html(generateHTML());
+  addBoardIndex();
+
+  for(var row = Bounds.top; row < Bounds.top + users.length; row++){
+    for(var col = Bounds.left; col < Bounds.left + users[0].length; col++){
+      if(board[col-1][row-1]){
+        if(users[row-Bounds.top][col-Bounds.left]){
+          if(users[row-Bounds.top][col-Bounds.left].toUpperCase() === board[col-1][row-1].toUpperCase()){
+            $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('correct');
+          }
+          else{
+            $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('wrong');
+          }
+        }
+        else{
+          $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('wrong');
+        }
+      }
+    }
+  }
+}
+
+//==================================================
+// Events
+
+// function: registerEvents: void -> void
+// - register clickable events
+function registerEvents(){
+  $(".menu > span.game").click(() => {
+    //TODO: go back to home
+  });
+
+  $(".menu > span.difficulty").click(() => {
+    if($(".menu > span.difficulty").text() == "Image-mode"){
+      $(".menu > span.difficulty").text("Text-mode");
+      resetBoard(true);
+    }
+    else{
+      $(".menu > span.difficulty").text("Image-mode");
+      resetBoard(false);
+    }
+  });
+
+  $(".menu > span.shuffle").click(() => {
+    // reload
+    setBoard();
+  })
+
+  $(".menu > span.cheat").click(() => {
+    // cheat answer
+    cheatAnswer();
+  });
+
+  $(".menu > span.check").click(() => {
+    // check answer
+    checkAnswer();
+  });
 }
