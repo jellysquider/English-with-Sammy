@@ -15,25 +15,27 @@
     "url": "git+https://github.com/jellysquider/English-with-Sammy/"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "ejs": "2.6.2",
     "express": "4.16.3",
+    "firebase": "^6.2.4",
     "firebase-admin": "^8.2.0",
     "firebase-functions": "^3.0.2",
-    "firebase-tools": "^7.0.2"
+    "firebase-tools": "^7.0.2",
+    "grpc": "^1.21.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-pro": "5.9.0",
     "eslint": "5.12.0",
-    "eslint-plugin-promise": "4.0.1"
+    "eslint-plugin-promise": "4.0.1",
+    "firebase-functions-test": "^0.1.6"
   },
   "authors": "Gabriela Medvetska, Fawaz Chaudhry, Juan Lee, Kyungmo Kim, Jonathan Huey",
   "bugs": {
     "url": "https://github.com/jellysquider/English-with-Sammy/issues"
   },
-  "homepage": "https://sammy-the-lab-assistant.firebaseapp.com",
+  "homepage": "",
   "private": true,
   "main": "./index.js"
 }

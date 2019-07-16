@@ -1,0 +1,212 @@
+<style>
+body {
+  background: #D3D3D3;
+  font-family: Calibri;
+  color: #000000;
+
+}
+
+h1 {
+  font-weight: 300;
+}
+
+hr {
+  border: 1px solid black;
+}
+
+#game_description {
+
+
+
+  font-size: 20;
+
+  text-align: center;
+
+  font-weight: 500;
+
+}
+
+#play_Button {
+  height: 30px;
+  width: 100px;
+}
+
+
+.title_Page {
+  text-align: center;
+
+}
+
+#game_Page {
+  text-align: center;
+  visibility: hidden;
+}
+
+
+
+
+
+.word1 {
+
+  background-color: #ffffff;
+
+  position: absolute;
+
+  top: 70%;
+  left: 10%;
+
+
+  width: 170px;
+  height: 15px;
+
+  margin: 15px;
+  padding: 15px;
+
+  border: 1px solid black;
+}
+
+.word2 {
+
+  background-color: #ffffff;
+
+  position: absolute;
+
+  top: 70%;
+  left: 37%;
+
+  width: 170px;
+  height: 15px;
+
+  margin: 15px;
+  padding: 15px;
+
+  border: 1px solid black;
+}
+.word3 {
+
+
+  background-color: #ffffff;
+
+  position: absolute;
+
+  top: 70%;
+  left: 64%;
+
+  width: 170px;
+  height: 15px;
+
+  margin: 15px;
+  padding: 15px;
+
+  border: 1px solid black;
+}
+
+
+#quit_Button{
+  position : absolute;
+
+  top: 88%;
+  left: 30%;
+
+}
+
+#restart_Button {
+  position : absolute;
+
+  top: 88%;
+  right: 30%;
+}
+
+
+.pic1 {
+
+
+  height:200px;
+  weight:200px;
+  margin:15px;
+}
+
+#end_Page {
+  text-align: center;
+  visibility: hidden;
+}
+
+
+#continue_Button {
+  height: 30px;
+  width: 100px;
+}
+
+<style>
+
+
+
+  <div class = "main" >
+    <div class = "title_Page" >
+
+      <h1 id = "game_Name" > Matching Pair Game </h1>
+
+      <button id ="play_Button"> Play </button>
+
+      <hr>
+
+    </div>
+
+
+    <div id = "game_Page" >
+
+      <h2 id = "game_description" > Match the word with the picture! </h2>
+
+      <div id = "pictures" >
+
+        <img class ="pic1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO3gAt81BsXnHnEvPpWBte_hY21CYqcV0WLGO99geq0cRxU6JpBw"
+        alt="Depressed Gudetama" style = "height: 200px; width 200px; margin: 15px;">
+
+        <img class ="pic2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8bDf1bc89kg6bStpluz-YP5SJMeesK-9PlL1BGJklpgZJAs0"
+        alt="pic2" style = "height: 200px; width 200px; margin: 15px;">
+
+        <img class ="pic3" src="https://sdl-stickershop.line.naver.jp/products/0/0/1/5030/LINEStorePC/main.png?__=20161019"
+        alt="pic3" style = "height: 200px; width 200px; margin: 15px;">
+
+      </div>
+
+
+      <div id = "words" >
+
+
+        <div class = "word1" draggable = "true" > Depressed Gudetama</div>
+
+        <div class = "word2" draggable = "true" > Tired Gudetama</div>
+
+        <div class = "word3" draggable = "true" > Happy Gudetama</div>
+
+      </div>
+
+
+      <div class = "game_Buttons" >
+
+
+
+          <button id ="quit_Button"> Quit </button>
+
+
+
+         <button id ="restart_Button"> Restart </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div id = "end_Page" >
+
+
+      <h1 id = "game_Name" > CONGRATSBY </h1>
+
+
+      <button id ="continue_Button"> Continue? </button>
+
+    </div>
+
+</div>

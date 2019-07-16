@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 // The / and /home routes need to be edited in Sprint 3 so that users who are logged in
 // are redirected to the dashboard.ejs and those that are not to index.js
+app.get('', (req, res) => res.render('pages/index.ejs'));
 app.get('/', (req, res) => res.render('pages/index.ejs'));
 app.get('/home', (req, res) => res.render('pages/index.ejs'));
 app.get('/dashboard', (req, res) => res.render('pages/dashboard.ejs'));
@@ -26,6 +27,7 @@ app.get('/dashboard', (req, res) => res.render('pages/dashboard.ejs'));
 // Sprint 1 functionality
 app.get('/games', (req, res) => res.render('pages/games.ejs'));
 app.get('/matchingPairs', (req, res) => res.render('pages/games/mPairs.ejs'));
+app.get('/matchingLetters', (req, res) => res.render('pages/games/mLetters.ejs'));
 
 // Sprint 2 functionality
 app.get('/crosswords', (req, res) => res.render('pages/games/crosswords.ejs'));
