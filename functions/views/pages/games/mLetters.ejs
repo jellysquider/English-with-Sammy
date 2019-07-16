@@ -10,13 +10,14 @@
       .game {
         padding-top: 200px;
       }
-      .box001 {
+      .drag-box {
           float: left;
           width: 75px;
           height: 15px;
           margin: 12px;
           padding: 10px;
           border: 1px solid black;
+          text-align: center;
       }
 
       .box002 {
@@ -44,93 +45,57 @@
       }
     </style>
 
-<div class="container game">
-  <p>Score: <text id="score001">0</text></p>
+  <div class="container game">
+    <p>Score: <text id="score001">0</text></p>
+    <div class="box" id="drag-boxes">
+      <!-- <div class="drag-box" ondrop="drop(event)" id="drag-box1">
+         <text ondragstart="dragStart(event)" draggable="true" id="target001">T</text>
+      </div>
 
-<div class="box001" ondrop="drop(event)" id="box001">
-   <text ondragstart="dragStart(event)" draggable="true" id="target001">T</text>
-</div>
+      <div class="drag-box" ondrop="drop(event)" id="box002">
+         <text ondragstart="dragStart(event)" draggable="true" id="target002">M</text>
+      </div>
 
-<div class="box001" ondrop="drop(event)" id="box002">
-   <text ondragstart="dragStart(event)" draggable="true" id="target002">M</text>
-</div>
+      <div class="drag-box" ondrop="drop(event)" id="box003">
+         <text ondragstart="dragStart(event)" draggable="true" id="target003">O</text>
+      </div>
 
-<div class="box001" ondrop="drop(event)" id="box003">
-   <text ondragstart="dragStart(event)" draggable="true" id="target003">O</text>
-</div>
+      <div class="drag-box" ondrop="drop(event)" id="box004">
+         <text ondragstart="dragStart(event)" draggable="true" id="target004">A</text>
+      </div>
 
-<div class="box001" ondrop="drop(event)" id="box004">
-   <text ondragstart="dragStart(event)" draggable="true" id="target004">A</text>
-</div>
+      <div class="drag-box" ondrop="drop(event)" id="box005">
+         <text ondragstart="dragStart(event)" draggable="true" id="target005">O</text>
+      </div>
+      <div class="drag-box" ondrop="drop006(event)" id="box006">
+         <text ondragstart="dragStart(event)" draggable="true" id="target006">T</text>
+      </div> -->
+    </div>
 
-<div class="box001" ondrop="drop(event)" id="box005">
-   <text ondragstart="dragStart(event)" draggable="true" id="target005">O</text>
-</div>
-<div class="box001" ondrop="drop006(event)" id="box006">
-   <text ondragstart="dragStart(event)" draggable="true" id="target006">T</text>
-</div>
-<br /><br /><br /><br />
-<div class="pictures">
-  <img class="" src="img/vegetables/tomato.jpg" alt="Card image cap">
-</div>
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
+    <br /><br /><br /><br />
+    <div class="pictures">
+      <img id="matchPicture" alt="Image letters need to be matched to">
+    </div>
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
 
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:O"></div>
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:O"></div>
 
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:M"></div>
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:M"></div>
 
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:A"></div>
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:A"></div>
 
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
-<div class="box001" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:O"></div><br /><br /><br />
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
+    <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:O"></div><br /><br /><br />
 
+    <button onclick="submit001()">Submit</button>
+    <p id="message001"></p>
 
+  </div>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
 
-
-<button onclick="submit001()">Submit</button>
-<p id="message001"></p>
-</div>
-<script>
-var b = 0;
-var count = 6;
-function dragStart(event) {
-event.dataTransfer.setData("choice", event.target.id);
-event.dataTransfer.setData("letter", event.target.innerHTML);
-}
-
-function allowDrop(event) {
-event.preventDefault();
-}
-
-function actualDrop(event) {
-var data = event.dataTransfer.getData("choice");
-var letter = event.dataTransfer.getData("letter");
-console.log(letter)
-var str = event.target.id;
-str = str.split("b:")
-if(str[1] == letter) {
-  console.log("Yes!")
-  event.target.appendChild(document.getElementById(data));
-  score001.innerHTML = ++b;
-  console.log(b)
-  var idStr = data;
-  idStr = idStr.replace(/\D/g,'');
-  document.getElementById("box" + idStr).style.visibility = "hidden";
-}
-else {
-  console.log("No!")
-}
-}
-
-function drop(event) {
-event.preventDefault();
-}
-
-function submit001() {
-if (b == count) {
-message001.innerHTML = "Congratulations!";
-}
-}
-</script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
+<script src="js/mLetters.js"></script>
 </body>
 </html>
