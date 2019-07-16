@@ -41,6 +41,7 @@ function WordObj(stringValue, i){
 // - The only code runs directly from the Javascript
 $(() => {
     init();
+    registerEvents();
 
     setBoard();
 })
@@ -125,7 +126,7 @@ function addBoardIndex(){
         }
 
         $(`.row:nth-child(${y}) > .square:nth-child(${x})`).html(word.index);
-        $(`.row:nth-child(${y}) > .square:nth-child(${x})`).css("color", "white");
+        $(`.row:nth-child(${y}) > .square:nth-child(${x})`).addClass('index');
     })
 }
 
@@ -355,4 +356,125 @@ function addHints(data){
     })
 
     $(".hints").html(html);
+}
+
+//==================================================
+// Answer-Related
+// - All of answer-related functions here
+
+//function: gatherAnswer: void -> void
+// - gather answer of user
+function gatherAnswer(){
+  const nRows = $(".row").length;
+  const nCols = $(".row:nth-child(1) > .square").length;
+
+  var users = [];
+  for(var row = 1; row <= nRows; row++){
+    users.push([]);
+    for(var col = 1; col <= nCols; col++){
+      if($(`.row:nth-child(${row}) > .square:nth-child(${col})`).hasClass('letter')){
+        users[row-1].push($(`.row:nth-child(${row}) > .square:nth-child(${col}) > input`).val());
+      }
+      else{
+        users[row-1].push(null);
+      }
+    }
+  }
+
+  return users;
+}
+
+//function: cheatAnswer: void -> void
+// - cheat the answers: show correct answer for 3 seconds
+function cheatAnswer(){
+  var users = gatherAnswer();
+
+  $("#crossword").html(generateHTML());
+  addBoardIndex();
+
+  $("#three").show();
+  setTimeout(() => {
+    $("#three").hide();
+    $("#two").show();
+    setTimeout(() => {
+      $("#two").hide();
+      $("#one").show();
+      setTimeout(()=>{
+        $("#one").hide();
+        $(".letter").html("<input class='char' type='text' maxlength='1'></input>");
+
+        for(var row = Bounds.top; row < Bounds.top + users.length; row++){
+          for(var col = Bounds.left; col < Bounds.left + users[0].length; col++){
+            if(users[row-Bounds.top][col-Bounds.left]){
+              $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1}) > input`).val(users[row-Bounds.top][col-Bounds.left]);
+            }
+          }
+        }
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}
+
+//function: checkAnswer: void -> void
+// - check the answers: if correct, show letter green, or, show letter red
+function checkAnswer(){
+  var users = gatherAnswer();
+
+  $("#crossword").html(generateHTML());
+  addBoardIndex();
+
+  for(var row = Bounds.top; row < Bounds.top + users.length; row++){
+    for(var col = Bounds.left; col < Bounds.left + users[0].length; col++){
+      if(board[col-1][row-1]){
+        if(users[row-Bounds.top][col-Bounds.left]){
+          if(users[row-Bounds.top][col-Bounds.left].toUpperCase() === board[col-1][row-1].toUpperCase()){
+            $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('correct');
+          }
+          else{
+            $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('wrong');
+          }
+        }
+        else{
+          $(`.row:nth-child(${row-Bounds.top+1}) > .square:nth-child(${col-Bounds.left+1})`).addClass('wrong');
+        }
+      }
+    }
+  }
+}
+
+//==================================================
+// Events
+
+// function: registerEvents: void -> void
+// - register clickable events
+function registerEvents(){
+  $(".menu > span.game").click(() => {
+    //TODO: go back to home
+  });
+
+  $(".menu > span.difficulty").click(() => {
+    if($(".menu > span.difficulty").text() == "Image-mode"){
+      $(".menu > span.difficulty").text("Text-mode");
+      //TODO: Toggle to Image mode
+    }
+    else{
+      $(".menu > span.difficulty").text("Image-mode");
+      //TODO: Toggle to Text mode
+    }
+  });
+
+  $(".menu > span.shuffle").click(() => {
+    // reload
+    setBoard();
+  })
+
+  $(".menu > span.cheat").click(() => {
+    // cheat answer
+    cheatAnswer();
+  });
+
+  $(".menu > span.check").click(() => {
+    // check answer
+    checkAnswer();
+  });
 }
