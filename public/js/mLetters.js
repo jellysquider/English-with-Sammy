@@ -12,6 +12,20 @@ firebase.initializeApp(config);
 
 var rootRef = firebase.database().ref('/Categories/Fruits');
 
+
+String.prototype.shuffle = function () {
+    var a = this.split(""),
+        n = a.length;
+
+    for(var i = n - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+    return a.join("");
+}
+
 function readFromDatabase() {
     return rootRef.on('value', function(snapshot) {
         // initializeTable();
@@ -35,7 +49,7 @@ function readFromDatabase() {
 readFromDatabase();
 
 var b = 0;
-var count = 6;
+var count = 0;
 
 function createDragBoxes() {
 
@@ -49,24 +63,44 @@ function createDragBoxes() {
     // var h = document.createElement("H1")                // Create a <h1> element
     // var t = document.createTextNode("Hello World");     // Create a text node
     // h.appendChild(t);                                   // Append the text to
+
+    console.log("hello")
+
+    wordShuffle = word.shuffle();
+    console.log("shuffled: " + wordShuffle);
     wordLength =  collection[wordIndex].length;
-    //console.log("word length", wordLength);
+    count = wordLength;
+
+    console.log("word length" + wordLength);
     for (let i = 0; i < wordLength; i++) {
-      letter = collection[wordIndex].charAt(i);
+      letter = wordShuffle.charAt(i);
       //console.log("letter ", letter);
       letterDragBox = document.createElement("div");
       letterDragBox.setAttribute("class", "drag-box");
-      //console.log("Box ", letterDragBox);
+      letterDragBox.setAttribute('ondrop', "drop(event)");
       letterDragBox.id = "drag-box" + i;
-      //letterDragBox.addEventListener = ('ondragstart', dragStart(event));
+      //letterDragBox = document.createElement("text");
+      //console.log("Box ", letterDragBox);
+      //letterDragBox.id = "target-box" + i;
+      letterDragBox.setAttribute('ondragstart', "dragStart(event)");
       letterDragBox.setAttribute("draggable", "true");
       letterDragBox.innerHTML = letter.toUpperCase();
+      //dragBox.appendChild(letterDragBox);
       document.getElementById("drag-boxes").appendChild(letterDragBox);
+
+      // <div class="drag-box" ondrop="actualDrop(event)" ondragover="allowDrop(event)" id="b:T"></div>
+
+      acceptingBox = document.createElement("div");
+      acceptingBox.setAttribute("class", "drag-box");
+      acceptingBox.setAttribute('ondrop', "actualDrop(event)");
+      acceptingBox.setAttribute('ondragover', "allowDrop(event)");
+      acceptingBox.id = "b:" + word.toUpperCase().charAt(i);
+      document.getElementById("drop-boxes").appendChild(acceptingBox);
+
     }
   }
 
 
-  // var urlRef = rootRef.child("user1/DAA Notes/URL");
   getAttributes = rootRef.child(word);
   getAttributes.once("value", function(snapshot) {
     snapshot.forEach(function(childAttr) {
@@ -88,6 +122,7 @@ function createDragBoxes() {
 
 
 function dragStart(event) {
+  console.log(event)
   event.dataTransfer.setData("choice", event.target.id);
   event.dataTransfer.setData("letter", event.target.innerHTML);
 }
@@ -104,7 +139,7 @@ function actualDrop(event) {
   str = str.split("b:")
   if(str[1] == letter) {
     console.log("Yes!")
-    event.target.appendChild(document.getElementById(data));
+    event.target.innerHTML = letter;
     score001.innerHTML = ++b;
     console.log(b)
     var idStr = data;
