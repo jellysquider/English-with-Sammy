@@ -68,9 +68,9 @@ function init(){
 // - Read data from DB
 // - Generate crossword
 
-// function setBoard: void -> void
+// function setBoard: boolean -> void
 // - set the Crossword board on HTML
-function setBoard(){
+function setBoard(image_mode){
     var parser = document.createElement('a'); // parse URL
     parser.href = window.location.href;
     var category = parser.search.split("=")[1];
@@ -95,9 +95,37 @@ function setBoard(){
             addBoardIndex();
 
             // Add Hints
-            addHints(snapshot.val());
+            if(image_mode)  addImages(snapshot.val());
+            else addHints(snapshot.val());
         }
     })
+}
+
+// function setBoard: boolean -> void
+// - set the Crossword board on HTML without re-generation
+function resetBoard(image_mode){
+  var parser = document.createElement('a'); // parse URL
+  parser.href = window.location.href;
+  var category = parser.search.split("=")[1];
+  if(!category) category = "Fruits";  // default category for error handling
+
+  firebase.database().ref(`Categories/${category}/`).once('value').then(snapshot => {
+      if(snapshot.val() !== null){
+          var words = Object.keys(snapshot.val());
+          wordArr = words.map(word => word.toUpperCase());
+
+          // Make Playable
+          $("#crossword").html(generateHTML());
+          $(".letter").html("<input class='char' type='text' maxlength='1'></input>");
+
+          // Add Index
+          addBoardIndex();
+
+          // Add Hints
+          if(image_mode)  addImages(snapshot.val());
+          else addHints(snapshot.val());
+      }
+  })
 }
 
 // function generateBoardFromWords: words -> void
@@ -358,6 +386,32 @@ function addHints(data){
     $(".hints").html(html);
 }
 
+// function: addImages: data -> void
+// - set images on html
+function addImages(data){
+  var keys = Object.keys(data);
+    var _data = {}
+    keys.forEach(key => {
+        _data[key.toUpperCase()] = data[key];
+    })
+    data = _data;
+
+    var hints = {}
+    wordsActive.forEach(word => {
+        hints[word.index] = data[word.string].img0;
+    })
+
+    var html = "";
+    keys = Object.keys(hints);
+    keys = keys.map(key => parseInt(key)).sort((a, b)=>{return a-b});
+
+    keys.forEach(key => {
+      html += hints[key] ? `<div class="hint-image"><div class="key"><div class="key-value">${key}</div></div><img src="${hints[key]}"></img></div>`: `<p class="hint">${key}. image does not exist</p>`;
+    })
+
+    $(".hints").html(html);
+}
+
 //==================================================
 // Answer-Related
 // - All of answer-related functions here
@@ -455,11 +509,11 @@ function registerEvents(){
   $(".menu > span.difficulty").click(() => {
     if($(".menu > span.difficulty").text() == "Image-mode"){
       $(".menu > span.difficulty").text("Text-mode");
-      //TODO: Toggle to Image mode
+      resetBoard(true);
     }
     else{
       $(".menu > span.difficulty").text("Image-mode");
-      //TODO: Toggle to Text mode
+      resetBoard(false);
     }
   });
 
