@@ -1,30 +1,4 @@
-var collection = [
-    "apple",
-    "ball",
-    "cat",
-    "mango",
-    "tango",
-    "typer",
-    "monitor",
-    "program",
-    "application",
-    "keyboard",
-    "javascript",
-    "network",
-    "possible",
-    "pikachu",
-    "star-lord",
-    "one-to-one",
-    "5422",
-    "python",
-    "nepal",
-    "document",
-    "this",
-    "we",
-    "pineapple",
-    "marvelous",
-    "mint"
-];
+var collection = [];
 
 const config = {
     apiKey: "AIzaSyAWCffYBhhwfmwao-gkgg_3f86bErtpHj0",
@@ -37,8 +11,6 @@ const config = {
 };
 
 firebase.initializeApp(config);
-//var collection = ['apple', 'mango', 'orange' , 'pineapple', 'pumpkin']
-//var collection = ['apple','ball','cat'];
 
 
 var easyMode = false;
@@ -79,21 +51,38 @@ let sound = new Audio();
 
 let damaged_sount = new Audio('../../../public/sound/damaged_sound.mp3');
 
-let heart_bar = document.getElementById("life_bar")
+let heart_bar = document.getElementById("life_bar");
 
+let one_two_three = Math.floor(Math.random()*3);
+
+
+//function parses querystring and return category that user chose
+function checkCategory(){
+    let urlParams = new URLSearchParams(window.location.search);
+    let category = urlParams.get("category");
+    if (category != null){
+        return category
+    }
+    else{
+        return ""
+    }
+}
+
+let chosen_category = checkCategory();
+
+//function which read vocabulary from the database
 function readFromDatabase() {
-    return firebase.database().ref('/Categories').on('value', function(snapshot) {
-        // initializeTable();
+    return firebase.database().ref(`/Categories/${chosen_category}`).on('value', function(snapshot) {
+
         let all_words_in_database = [];
 
         let myValue = snapshot.val();
 
-        for (let i in myValue){
-            for (let j in myValue[i]){
-                all_words_in_database.push(j);
+        console.log(myValue)
 
-            }
 
+        for (let key in myValue){
+            all_words_in_database.push(key)
         }
         console.log(all_words_in_database)
         collection = all_words_in_database;
@@ -105,7 +94,7 @@ function readFromDatabase() {
 
 readFromDatabase();
 
-
+//function randomly shuffles the array
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         let rnd = Math.floor(Math.random() * i);
@@ -119,6 +108,7 @@ function shuffle(arr) {
 
 document.addEventListener("DOMContentLoaded", setup);
 
+//function add basic components
 function setup() {
     // EASY MODE SWITCHER //
     document.getElementById("easyMode").addEventListener("change", function() {
@@ -145,6 +135,7 @@ function setup() {
     playBtn.addEventListener("click", startGame);
 }
 
+//divide 'collection' array to arr1 and arr2
 function fillAndShuffleArray() {
     let collectionShuffle = shuffle(collection);
     arr1 = collectionShuffle.slice(0, Math.round(collectionShuffle.length / 2));
@@ -158,6 +149,7 @@ function fillAndShuffleArray() {
     arr2 = shuffle(arr2);
 }
 
+//function invoked when user press 'play' button
 function startGame(evt) {
     console.log("game start")
 
@@ -206,10 +198,12 @@ function fillC2Timer() {
     c2FillerTimer = setInterval(fillC2, 2000); // speed 200 for first word
 }
 
+//function fill content on the upper line
 function fillC1() {
     let word = document.createElement("span");
     word.innerHTML = arr1[arr1Pointer];
-    //word.innerHTML = `<img src = "image/${arr1[arr1Pointer]}.jpg" height = 80px>`
+
+    //word.innerHTML = `<img src = ${arr1[arr1Pointer].img0} height = 80px>`
     word.style.animation =
         "floater " + (endAt / 1000).toFixed(2) + "s linear forwards";
     word.id = "word-" + "1-" + arr1Pointer;
@@ -234,7 +228,7 @@ function fillC1() {
 
     arr1Pointer++;
 
-    if (missed_word_count >= 3){
+    if (missed_word_count >= 3){ // when user missed more than three times
         clearInterval(c1FillerTimer);
         resetC1();
         resetAll();
@@ -243,8 +237,8 @@ function fillC1() {
         // }, endAt + 200);
     }
 
-    else if (arr1Pointer < arr1.length) {
-        // Decrement slowly the speed & endAt a.k.a faster slide //
+    else if (arr1Pointer < arr1.length) { //when there is words remain on the array
+
         if (endAt > minEndAt) {
             speed = speed - speedDecrementBy;
             endAt = endAt - endAtDecrementBy;
@@ -256,8 +250,8 @@ function fillC1() {
 
 
 
-    else {
-        // IF Word are completely empty //
+    else {// when user user typed every word in the array
+
         clearInterval(c1FillerTimer);
         setTimeout(function() {
             resetC1();
@@ -265,6 +259,7 @@ function fillC1() {
     }
 }
 
+//same with fillC1 function, but this function fills the lower line
 function fillC2() {
     let word = document.createElement("span");
     word.innerHTML = arr2[arr2Pointer];
@@ -293,17 +288,12 @@ function fillC2() {
         clearInterval(c2FillerTimer);
         resetC2();
         resetAll();
-        // setTimeout(function() {
-        //     resetC2();
-        // }, endAt + 200);
+
     }
 
     else if (arr2Pointer < arr2.length) {
         // No need to decrement timer speed and end here //
-        /*if(endAt > minEndAt){
-                    speed = speed - speedDecrementBy;
-                    endAt = endAt - endAtDecrementBy;
-                }*/
+
 
         clearInterval(c2FillerTimer);
         c2FillerTimer = setInterval(fillC2, speed);
@@ -312,7 +302,7 @@ function fillC2() {
 
 
     else {
-        // IF Word are completely empty //
+
         clearInterval(c2FillerTimer);
         setTimeout(function() {
             resetC2();
@@ -320,8 +310,8 @@ function fillC2() {
     }
 }
 
-function checkGameOver() {
-    // If Game over //
+function checkGameOver() { //check whether both top and bottom lines are finished.
+
     if (isC1Ended && isC2Ended) {
         playBtn.addEventListener("click", startGame);
         playBtn.style.display = "initial";
@@ -330,7 +320,7 @@ function checkGameOver() {
     }
 }
 
-function resetC1() {
+function resetC1() { // action when upper line is finished
     c1.parentElement.style.background = "brown";
     c1.parentElement.style.cursor = "not-allowed";
     c1.parentElement.title = "Pack Ended";
@@ -339,7 +329,7 @@ function resetC1() {
     checkGameOver();
 }
 
-function resetC2() {
+function resetC2() {//action when lower line is finished
     c2.parentElement.style.background = "brown";
     c2.parentElement.style.cursor = "not-allowed";
     c2.parentElement.title = "Pack Ended";
@@ -348,7 +338,7 @@ function resetC2() {
     checkGameOver();
 }
 
-function resetAll() {
+function resetAll() { //action when both line are finished.
     clearInterval(c1FillerTimer);
     clearInterval(c2FillerTimer);
     c1FillerTimer = null;
@@ -414,7 +404,7 @@ function resetAll() {
     },2000);
 }
 
-function typeTrack(evt) {
+function typeTrack(evt) { //action when user types something
     if (evt.keyCode == 8) {
         backspaceHandler();
         return;
@@ -443,7 +433,7 @@ function typeTrack(evt) {
     typeCheck();
 }
 
-function typeCheck() {
+function typeCheck() { //function to check spelling.
     for (let i = 0; i < arr1Pointer; i++) {
         //comapre slice of oldKeys to length of this word with this word //
         if (arr1[i].toLowerCase() == (oldKeysArray.slice(-arr1[i].length).join("")).toLowerCase()) {
@@ -465,13 +455,13 @@ function typeCheck() {
             }, 1500);
             correctDing();
             return;
-            //alert(score);
+
         }
     }
 
     if (!easyMode) {
         for (let i = 0; i < arr2Pointer; i++) {
-            //comapre slice of oldKeys to length of this word with this word //
+            //compare slice of oldKeys to length of this word with this word //
             if (arr2[i].toLowerCase() == (oldKeysArray.slice(-arr2[i].length).join("")).toLowerCase()) {
                 // Update Score
                 score += arr2[i].length;
@@ -496,14 +486,14 @@ function typeCheck() {
     }
 }
 
-function backspaceHandler() {
+function backspaceHandler() {//when user types backspace
     oldKeysArray.pop();
     typing.innerHTML = "⌫";
     oldKeys.innerHTML =
         oldKeysArray.length < 10 ? oldKeysArray : "..." + oldKeysArray.slice(-10);
 }
 
-function correctDing() {
+function correctDing() {//sound play when user get a correct answer
     sound.src = "https://freesound.org/data/previews/335/335908_5865517-lq.mp3";
     sound.autoplay = true;
     sound.play();
