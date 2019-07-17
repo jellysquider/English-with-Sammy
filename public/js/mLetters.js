@@ -92,7 +92,7 @@ function createDragBoxes() {
 }
 
 function getDatabasePictures(word) {
-  databasePictures = []
+  databasePictures = new Array();
   getAttributes = rootRef.child(word);
   getAttributes.once("value", function(snapshot) {
     snapshot.forEach(function(childAttr) {
@@ -109,6 +109,7 @@ function getDatabasePictures(word) {
     wordPictureTag.setAttribute("class", "mx-auto my-5 d-block letterPic");
     wordPictureTag.setAttribute("src", randomPicture);
     document.getElementById("letter-picture").appendChild(wordPictureTag);
+    databasePictures = new Array();
 }
 
 function dragStart(event) {
