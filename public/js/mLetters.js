@@ -145,13 +145,11 @@ function getDatabasePictures(word) {
           databasePictures.push(childAttr.val());
 
           console.log("databasePictures: " + databasePictures);
-          wordPictureTag = document.createElement("img");
-          // selected random picture out of all elements of the databasePictures array
           randomPicture = databasePictures[Math.floor(Math.random()*databasePictures.length)];
-          //console.log("randomPicture: " + randomPicture);
-          wordPictureTag.setAttribute("class", "mx-auto my-5 d-block letterPic");
-          wordPictureTag.setAttribute("src", randomPicture);
-          document.getElementById("letter-picture").appendChild(wordPictureTag);
+          wordPicture = document.getElementById("letter-picture");
+          wordPicture.setAttribute("class", "mx-auto my-5 d-block letterPic");
+          wordPicture.setAttribute("style", "display: block;");
+          wordPicture.setAttribute("src", randomPicture);
         };
       });
     });
