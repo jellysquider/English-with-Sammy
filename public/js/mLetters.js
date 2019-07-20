@@ -124,10 +124,10 @@ function createDragBoxes() {
       acceptingBox.id = "letter:" + word.toUpperCase().charAt(i);
       document.getElementById("drop-boxes").appendChild(acceptingBox);
   
-      }
+    }
+    next_done = false;
   });
 
-  next_done = false;
 }
 
 function getDatabasePictures(word) {
