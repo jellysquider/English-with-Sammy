@@ -15,8 +15,8 @@ This project is expected to be completed in 5 weeks according to our SCRUM plan.
 [Trello](https://trello.com/invite/b/h2H8jaYs/1989a603fe8ccbbc805ff282e2aed24f/overview-of-the-project)
 
 ### Contributors
-Gabriela Medvetska (Product Owner)
-Fawaz Chaudhry (Scrum Master)
-Juan Lee
-Kyungmo Kim
-Jonathan Huey
+* Gabriela Medvetska (Product Owner)
+* Fawaz Chaudhry (Scrum Master)
+* Juan Lee
+* Kyungmo Kim
+* Jonathan Huey
