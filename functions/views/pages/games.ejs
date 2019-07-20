@@ -19,9 +19,9 @@
                 </div>
             </div>
 
-            <div class="row mb-5">
+            <!-- <div class="row mb-5">
               <div class="col-lg-8 mx-auto">
-                  <!-- Custom rounded search bar with input group -->
+                   Custom rounded search bar with input group
                   <form action="">
                     <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                       <div class="input-group">
@@ -33,58 +33,147 @@
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> -->
 
               <div class="filters">
                   <ul>
                       <li class="active" data-filter="*">All</li>
-                      <li data-filter=".matchingPairs">Matching Pairs</li>
+                      <li data-filter=".matchingLetters">Matching Letters</li>
+                      <li data-filter=".matchingPictures">Matching Pictures</li>
                       <li data-filter=".crossword">Crossword</li>
-                      <li data-filter=".wordSearch">Word Search</li>
+                      <li data-filter=".typingRacer">Typing Racer</li>
                   </ul>
               </div>
 
               <div class="row grid">
-                <a href="/matchingPairs">
-                  <div class="card px-0 mt-4 all matchingPairs">
-                    <img class="card-img-top" src="img/fruits.jpg" alt="Card image cap">
+
+                <a href="matchingPictures?category=Vegetables">
+                  <div class="card px-0 mt-4 all matchingPictures">
+                    <img class="card-img-top" src="/img/vegetables.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Vegetables</h5>
-                      <p class="card-text"><small class="text-muted">Matching Pairs</small></p>
+                      <p class="card-text"><small class="text-muted">Matching Pictures</small></p>
                       <p class="card-text">Learn vocabulary related to vegetables such as a carrot, a bell pepper, a cucumber, etc.</p>
                     </div>
                   </div>
                 </a>
-                <a href="/crossword">
+
+                <a href="crossword?category=Fruits">
                   <div class="card px-0 mt-4 all crossword">
-                    <img class="card-img-top" src="img/fruits2.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="/img/fruits2.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Fruits</h5>
                       <p class="card-text"><small class="text-muted">Crossword</small></p>
-                      <p class="card-text">Learn words such as a banana, a raspberry, a watermelon, an orange, etc.</p>
+                      <p class="card-text">Learn words related to fruits such as a banana, a raspberry, a watermelon, an orange, etc.</p>
                     </div>
                   </div>
                 </a>
-                <a href="/wordSearch">
-                  <div class="card px-0 mt-4 all wordSearch">
-                    <img class="card-img-top" src="img/deer.jpg" alt="Card image cap">
+
+                <a href="matchingLetters?category=Pets">
+                  <div class="card px-0 mt-4 all matchingLetters">
+                    <img class="card-img-top" src="/img/pets.jpg" alt="Card image cap">
                     <div class="card-body">
-                      <h5 class="card-title">Animals</h5>
-                      <p class="card-text"><small class="text-muted">Word Search</small></p>
-                      <p class="card-text">Learn words related to animals such as a dog, a cat, a deer, a lion, etc.</p>
+                      <h5 class="card-title">Pets</h5>
+                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                      <p class="card-text">Learn words related to house pets such as a dog, a cat, a gunea pig, a hamster, a mouse, etc.</p>
                     </div>
                   </div>
                 </a>
-                <a href="/matchingPairs">
-                  <div class="card px-0 mt-4 all matchingPairs">
-                    <img class="card-img-top" src="img/clothing.jpg" alt="Card image cap">
+
+                <a href="matchingPictures?category=Fruits">
+                  <div class="card px-0 mt-4 all matchingPictures" style="">
+                    <img class="card-img-top" src="/img/fruits.jpg" alt="Card image cap">
                     <div class="card-body">
-                      <h5 class="card-title">Clothing</h5>
-                      <p class="card-text"><small class="text-muted">Matching Pairs</small></p>
-                      <p class="card-text">Learn words related to clothing such as a hat, pants, a T-shirt, a coat, etc.</p>
+                      <h5 class="card-title">Fruits #2</h5>
+                      <p class="card-text"><small class="text-muted">Matching Pictures</small></p>
+                      <p class="card-text">Learn words such as a tangerine, a strawberry, a lemon, grape, a mango etc.</p>
                     </div>
                   </div>
                 </a>
+
+                <a href="crossword?category=Pets">
+                  <div class="card px-0 mt-4 all crossword">
+                    <img class="card-img-top" src="/img/pets2.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Pets #2</h5>
+                      <p class="card-text"><small class="text-muted">Crossword</small></p>
+                      <p class="card-text">Learn words related to exotic house pets such as a fish, a snake, a parrot, a lizard, a crab, etc.</p>
+                    </div>
+                  </div>
+                </a>
+
+
+
+                <a href="typingRacer?category=Vegetables">
+                  <div class="card px-0 mt-4 all typingRacer">
+                    <img class="card-img-top" src="/img/vegetables2.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Vegetables #2</h5>
+                      <p class="card-text"><small class="text-muted">Typing Racer</small></p>
+                      <p class="card-text">Learn vocabulary related to vegetables such as a carrot, a bell pepper, a cucumber, etc.</p>
+                    </div>
+                  </div>
+                </a>
+
+                <div class="card card-disabled px-0 mt-4 all matchingLetters">
+                  <img class="card-img-top" src="/img/food.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Food & Drinks (Coming Soon!)</h5>
+                    <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                    <p class="card-text">Learn words related to food & drinks such as pizza, a hamburger, a steak, soda, wine, etc.</p>
+                  </div>
+                </div>
+
+                  <div class="card card-disabled px-0 mt-4 all typingRacer">
+                    <img class="card-img-top" src="/img/accessories.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Accessories (Coming Soon!)</h5>
+                      <p class="card-text"><small class="text-muted">Typing Racer</small></p>
+                      <p class="card-text">Learn words related to accessories such as glasses, a purse, a wallet, a lipstick, a watch, etc.</p>
+                    </div>
+                  </div>
+
+                  <div class="card card-disabled px-0 mt-4 all crossword">
+                    <img class="card-img-top" src="/img/deer.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Wild Animals (Coming Soon!)</h5>
+                      <p class="card-text"><small class="text-muted">Crossword</small></p>
+                      <p class="card-text">Learn words related to animals such as a penguin, a wolf, a deer, a lion, a fox, a racoon, etc.</p>
+                    </div>
+                  </div>
+
+                  <div class="card card-disabled px-0 mt-4 all matchingLetters">
+                    <img class="card-img-top" src="/img/clothing.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Clothing (Coming Soon!)</h5>
+                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                      <p class="card-text">Learn words related to clothing such as a hat, pants, a T-shirt, shorts, a hoodie, a coat,  etc.</p>
+                    </div>
+                  </div>
+
+
+                  <div class="card card-disabled px-0 mt-4 all matchingPictures">
+                    <img class="card-img-top" src="/img/desserts.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Desserts (Coming Soon!)</h5>
+                      <p class="card-text"><small class="text-muted">Matching Pictures</small></p>
+                      <p class="card-text">Learn words related to desserts such as a cupcake, a pie, a muffin, a macaroon, a cookie, etc.</p>
+                    </div>
+                  </div>
+
+                  <div class="card card-disabled px-0 mt-4 all typingRacer">
+                    <img class="card-img-top" src="/img/english.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">The Most Common English Words (Coming Soon!)</h5>
+                      <p class="card-text"><small class="text-muted">Typing Racer</small></p>
+                      <p class="card-text">Learn the most common English words useful in any situation.</p>
+                    </div>
+                  </div>
+
+
+
+
+
               </div>
 
               </div>
@@ -132,7 +221,7 @@
     <!-- <script src="js/isotope.pkgd.min.js"></script> -->
 
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="js/front.js"></script>
+    <script src="/js/front.js"></script>
 </body>
 
 </html>
