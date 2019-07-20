@@ -126,6 +126,8 @@ function createDragBoxes() {
   
       }
   });
+
+  next_done = false;
 }
 
 function getDatabasePictures(word) {
@@ -210,30 +212,35 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+next_done = false
 async function Next() {
+  next_done = true;
   //if (userScoreInt == wordLength) {
   //message001.innerHTML = "Congratulations!";
-  await sleep(500);
 
-  userScoreInt = 0;
-  //userScore.innerHTML = 0;
-
-  var removeDragBoxes = document.getElementById("drag-boxes");
-  while (removeDragBoxes.firstChild) {
-      removeDragBoxes.removeChild(removeDragBoxes.firstChild);
+  if(!next_done){
+    await sleep(500);
+  
+    userScoreInt = 0;
+    //userScore.innerHTML = 0;
+  
+    var removeDragBoxes = document.getElementById("drag-boxes");
+    while (removeDragBoxes.firstChild) {
+        removeDragBoxes.removeChild(removeDragBoxes.firstChild);
+    }
+  
+    var removeDropBoxes = document.getElementById("drop-boxes");
+    while (removeDropBoxes.firstChild) {
+        removeDropBoxes.removeChild(removeDropBoxes.firstChild);
+    }
+  
+    var removeImg = document.getElementById("letter-picture");
+    while (removeImg.firstChild) {
+        removeImg.removeChild(removeImg.firstChild);
+    }
+    createDragBoxes();
+  
+    //message001.innerHTML = "";
+    //}
   }
-
-  var removeDropBoxes = document.getElementById("drop-boxes");
-  while (removeDropBoxes.firstChild) {
-      removeDropBoxes.removeChild(removeDropBoxes.firstChild);
-  }
-
-  var removeImg = document.getElementById("letter-picture");
-  while (removeImg.firstChild) {
-      removeImg.removeChild(removeImg.firstChild);
-  }
-  createDragBoxes();
-
-  //message001.innerHTML = "";
-  //}
 }
