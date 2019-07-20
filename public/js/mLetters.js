@@ -88,74 +88,71 @@ function Play() {
   // <button type="button" class="btn btn-outline-info" onclick="Finish()">Finish</button>
 }
 
-async function createDragBoxes() {
+function createDragBoxes() {
   var wordIndex = Math.floor(Math.random() * collection.length);
   console.log("word index: ", wordIndex);
   var word = await collection[wordIndex];
   console.log("word: ", word);
 
-  await getDatabasePictures(word);
-
-  if(wordsUserSaw.includes(word)) {
-    return createDragBoxes();
-  }
-  wordsUserSaw.push(word);
-
-  wordShuffle = word.shuffle();
-  //console.log("shuffled: " + wordShuffle);
-  wordLength =  collection[wordIndex].length;
-  //console.log("word length" + wordLength);
-  for (let i = 0; i < wordLength; i++) {
-    letter = wordShuffle.charAt(i);
-    //console.log("letter ", letter);
-    letterDragBox = document.createElement("div");
-    letterDragBox.setAttribute("class", "drag-box");
-    letterDragBox.setAttribute('ondrop', "drop(event)");
-    letterDragBox.id = "drag-box" + i;
-    letterDragBox.setAttribute('ondragstart', "dragStart(event)");
-    letterDragBox.setAttribute("draggable", "true");
-    letterDragBox.innerHTML = letter.toUpperCase();
-    //dragBox.appendChild(letterDragBox);
-    document.getElementById("drag-boxes").appendChild(letterDragBox);
-
-    acceptingBox = document.createElement("div");
-    acceptingBox.setAttribute("class", "drag-box");
-    acceptingBox.setAttribute('ondrop', "actualDrop(event)");
-    acceptingBox.setAttribute('ondragover', "allowDrop(event)");
-    acceptingBox.id = "letter:" + word.toUpperCase().charAt(i);
-    document.getElementById("drop-boxes").appendChild(acceptingBox);
-
+  getDatabasePictures(word).then(() => {
+    if(wordsUserSaw.includes(word)) {
+      return createDragBoxes();
     }
+    wordsUserSaw.push(word);
+  
+    wordShuffle = word.shuffle();
+    //console.log("shuffled: " + wordShuffle);
+    wordLength =  collection[wordIndex].length;
+    //console.log("word length" + wordLength);
+    for (let i = 0; i < wordLength; i++) {
+      letter = wordShuffle.charAt(i);
+      //console.log("letter ", letter);
+      letterDragBox = document.createElement("div");
+      letterDragBox.setAttribute("class", "drag-box");
+      letterDragBox.setAttribute('ondrop', "drop(event)");
+      letterDragBox.id = "drag-box" + i;
+      letterDragBox.setAttribute('ondragstart', "dragStart(event)");
+      letterDragBox.setAttribute("draggable", "true");
+      letterDragBox.innerHTML = letter.toUpperCase();
+      //dragBox.appendChild(letterDragBox);
+      document.getElementById("drag-boxes").appendChild(letterDragBox);
+  
+      acceptingBox = document.createElement("div");
+      acceptingBox.setAttribute("class", "drag-box");
+      acceptingBox.setAttribute('ondrop', "actualDrop(event)");
+      acceptingBox.setAttribute('ondragover', "allowDrop(event)");
+      acceptingBox.id = "letter:" + word.toUpperCase().charAt(i);
+      document.getElementById("drop-boxes").appendChild(acceptingBox);
+  
+      }
+  });
 }
 
-async function getDatabasePictures(word) {
+function getDatabasePictures(word) {
   let databasePictures = new Array();
 
   getAttributes = rootRef.child(word);
   //console.log("getAttributes: ", getAttributes);
 
-  await getAttributes.once("value", function(snapshot) {
+  return getAttributes.once("value", function(snapshot) {
       snapshot.forEach(function(childAttr) {
         //console.log(childAttr.key + ": " + childAttr.val());
         // check if one of the keys include image
         if (childAttr.key.includes("img")) {
           // add it to the databasePictures array
           databasePictures.push(childAttr.val());
+
+          console.log("databasePictures: " + databasePictures);
+          wordPictureTag = document.createElement("img");
+          // selected random picture out of all elements of the databasePictures array
+          randomPicture = databasePictures[Math.floor(Math.random()*databasePictures.length)];
+          //console.log("randomPicture: " + randomPicture);
+          wordPictureTag.setAttribute("class", "mx-auto my-5 d-block letterPic");
+          wordPictureTag.setAttribute("src", randomPicture);
+          document.getElementById("letter-picture").appendChild(wordPictureTag);
         };
       });
     });
-
-  // Wait 3 seconds
-  await new Promise((resolve, reject) => setTimeout(resolve, 100));
-
-  console.log("databasePictures: " + databasePictures);
-  wordPictureTag = document.createElement("img");
-  // selected random picture out of all elements of the databasePictures array
-  randomPicture = databasePictures[Math.floor(Math.random()*databasePictures.length)];
-  //console.log("randomPicture: " + randomPicture);
-  wordPictureTag.setAttribute("class", "mx-auto my-5 d-block letterPic");
-  wordPictureTag.setAttribute("src", randomPicture);
-  document.getElementById("letter-picture").appendChild(wordPictureTag);
 }
 
 
