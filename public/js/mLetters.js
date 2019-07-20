@@ -91,12 +91,12 @@ function Play() {
 function createDragBoxes() {
   var wordIndex = Math.floor(Math.random() * collection.length);
   console.log("word index: ", wordIndex);
-  var word = await collection[wordIndex];
+  var word = collection[wordIndex];
   console.log("word: ", word);
 
   getDatabasePictures(word).then(() => {
     if(wordsUserSaw.includes(word)) {
-      return createDragBoxes();
+      //return createDragBoxes();
     }
     wordsUserSaw.push(word);
   
@@ -125,6 +125,7 @@ function createDragBoxes() {
       document.getElementById("drop-boxes").appendChild(acceptingBox);
   
     }
+    console.log('?')
     next_done = false;
   });
 
@@ -212,12 +213,11 @@ function sleep(ms) {
 
 next_done = false
 async function Next() {
-  next_done = true;
   //if (userScoreInt == wordLength) {
   //message001.innerHTML = "Congratulations!";
-
-  if(!next_done){
-    await sleep(500);
+    
+    if(!next_done){
+    next_done = true;
   
     userScoreInt = 0;
     //userScore.innerHTML = 0;
@@ -231,12 +231,9 @@ async function Next() {
     while (removeDropBoxes.firstChild) {
         removeDropBoxes.removeChild(removeDropBoxes.firstChild);
     }
-  
-    var removeImg = document.getElementById("letter-picture");
-    while (removeImg.firstChild) {
-        removeImg.removeChild(removeImg.firstChild);
-    }
     createDragBoxes();
+
+    console.log('next called');
   
     //message001.innerHTML = "";
     //}
