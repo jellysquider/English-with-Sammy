@@ -41,7 +41,17 @@ function WordObj(stringValue, i){
 // - The only code runs directly from the Javascript
 $(() => {
     init();
-    registerEvents();
+
+    $("#mode").click(() => {
+      if($("[for='mode']").text() === "Text Mode"){
+        $("[for='mode']").text("Image Mode");
+        resetBoard(true);
+      }
+      else {
+        $("[for='mode']").text("Text Mode")
+        resetBoard(false);
+      }
+    })
 
     setBoard();
 })
@@ -499,36 +509,14 @@ function checkAnswer(){
 //==================================================
 // Events
 
-// function: registerEvents: void -> void
-// - register clickable events
-function registerEvents(){
-  $(".menu > span.game").click(() => {
-    //TODO: go back to home
-  });
+function Shuffle(){
+  setBoard();
+}
 
-  $(".menu > span.difficulty").click(() => {
-    if($(".menu > span.difficulty").text() == "Image-mode"){
-      $(".menu > span.difficulty").text("Text-mode");
-      resetBoard(true);
-    }
-    else{
-      $(".menu > span.difficulty").text("Image-mode");
-      resetBoard(false);
-    }
-  });
+function Cheat(){
+  cheatAnswer();
+}
 
-  $(".menu > span.shuffle").click(() => {
-    // reload
-    setBoard();
-  })
-
-  $(".menu > span.cheat").click(() => {
-    // cheat answer
-    cheatAnswer();
-  });
-
-  $(".menu > span.check").click(() => {
-    // check answer
-    checkAnswer();
-  });
+function Check(){
+  checkAnswer();
 }

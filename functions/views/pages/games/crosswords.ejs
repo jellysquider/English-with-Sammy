@@ -2,23 +2,36 @@
 <html>
 <head>
     <title>Crossword - English with Sammy</title>
+    <% include ../../partials/header.ejs %>
     <link rel="stylesheet" href="/css/crosswords.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,700&display=swap">
 </head>
 <body>
+    <% include ../../partials/nav.ejs %>
+
     <div id="crossword"></div>
-    <p class="description">Scroll down to see hints!</p>
     <div class="hints"></div>
-    <div class="menu">
-        <span class="game">Crossword</span>
-        <span class="difficulty">Image-mode</span>
-        <span class="shuffle">Shuffle</span>
-        <span class="cheat">Cheat</span>
-        <span class="check">Check Answer</span>
-    </div>
+    
     <div class="counter" id="three"><span >3</span></div>
     <div class="counter" id="two"><span>2</span></div>
     <div class="counter" id="one"><span>1</span></div>
+
+    <div class="justify-content-around ml-5 description" id="buttons">
+            <!-- JavaScript will generate 2 buttons one for Next and one for Finish functionalities -->
+            <!-- <button type="button" class="btn btn-success" onclick="Next()">Next</button>
+            <button type="button" class="btn btn-outline-info" onclick="Finish()">Finish</button> -->
+
+            <!-- Default checked -->
+            <button type="button" class="btn btn-outline-info" onclick="Shuffle()">Shuffle</button>
+            <button type="button" class="btn btn-outline-info" onclick="Cheat()">Cheat</button>
+            <button type="button" class="btn btn-outline-info" onclick="Check()">Check</button>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="mode" checked>
+                <label class="custom-control-label" for="mode">Text Mode</label>
+            </div>
+    </div>
+
+    <p class="scrollable">Scroll down to see hints!</p>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>

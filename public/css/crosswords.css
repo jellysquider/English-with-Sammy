@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #eeeeee;
+
 }
 
 #crossword {
@@ -43,7 +43,7 @@ body {
     user-select: text;
 
     box-sizing: border-box;
-    border: 1px solid #dddddd;
+    border: 1px solid #cacaca;
 }
 
 .char {
@@ -88,6 +88,8 @@ body {
 
     font-size: 1.2em;
     line-height: 1.4em;
+
+    margin-top: 1em;
 }
 
 .hint {
@@ -117,36 +119,6 @@ body {
     width: 60%;
 }
 
-.menu {
-    position: fixed;
-    width: 100%;
-    height: 60px;
-
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.menu > span {
-    display: inline-block;
-
-    margin-top: 30px;
-    transform: translate(0, -50%);
-
-    margin-left: 1em;
-
-    cursor: pointer;
-}
-
-.menu > span.game {
-    font-weight: 700;
-    font-size: 1.2em;
-}
-
-.menu > span.check {
-    float: right;
-    margin-right: 1em;
-}
-
 .counter {
     width: 200px;
     height: 200px;
@@ -170,4 +142,22 @@ body {
 
     color: rgb(255, 255, 255, 0.8);
     font-size: 5em;
+}
+
+#buttons > .custom-switch {
+    display: inline-block;
+}
+
+.custom-switch > input {
+    height: 100%;
+}
+
+.scrollable {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+
+    font-size: 1.2em;
+    font-weight: 100;
 }
