@@ -14,6 +14,7 @@ class Picture {
 }
 
 var picture_Array = [];
+var seen_Pictures_Array = [];
 var x = 0;
 
 
@@ -75,6 +76,9 @@ function start_Game(evt) {
     change_Images();
 
     play_Button.style.visibility = "hidden";
+
+    game_Description.style.visibility = "visible";
+
     game_Page.style.visibility = "visible";
 
 
@@ -100,75 +104,94 @@ function change_Images() {
 
 
     let temp_Picture_Array = [];
-
-
-    if (picture_Array.length <= 3) {
-        console.log("sigh");
-    }
-    else {
-        for (i = 0; i < 3; i++) {
-            let temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
+    let temp_Word_Array = [];
 
 
 
-            picture_Array.splice(temp, 1);
+    for (i = 0; i < 3; i++) {
 
-            if (temp_Picture_Array.includes(temp)) {
-                temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
-            }
+        let alpha = Math.floor(Math.random() * picture_Array.length);
 
-
-            console.log(picture_Array.length);
+        let temp = picture_Array[alpha];
 
 
-            temp_Picture_Array.push(temp);
 
+        picture_Array.splice(alpha, 1);
+
+
+
+
+        if (seen_Pictures_Array.includes(temp)) {
+            temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
         }
-    }
 
 
-
-
-    if (temp_Picture_Array[0].image == "") {
-        console.log("hi");
-    }
-    else {
-        game_Image1.src = temp_Picture_Array[0].image;
-        game_Image1.height = 200;
-        game_Image1.width = 200;
-        game_Image1.alt = temp_Picture_Array[0].word
-
-        game_Word1.textContent = temp_Picture_Array[0].word;
+        temp_Word_Array.push(temp.word);
+        temp_Picture_Array.push(temp);
+        seen_Pictures_Array.push(temp);
 
     }
-    if (temp_Picture_Array[1].image == "") {
-        console.log("hi");
-    }
-    else {
-        game_Image2.src = temp_Picture_Array[1].image;
-        game_Image2.height = 200;
-        game_Image2.width = 200;
-        game_Image2.alt = temp_Picture_Array[1].word
 
-        game_Word2.textContent = temp_Picture_Array[1].word;
-    }
-    if (temp_Picture_Array[2].image == "") {
-        console.log("hi");
-    }
-    else {
-        game_Image3.src = temp_Picture_Array[2].image;
-        game_Image3.height = 200;
-        game_Image3.width = 200;
-        game_Image3.alt = temp_Picture_Array[2].word
 
-        game_Word3.textContent = temp_Picture_Array[2].word;
+
+    for (i = 0; i < 3; i++) {
+        console.log(temp_Picture_Array[i].word);
     }
+
+    console.log(temp_Word_Array);
+
+
+
+    game_Image1.src = temp_Picture_Array[0].image;
+    game_Image1.height = 200;
+    game_Image1.width = 200;
+    game_Image1.alt = temp_Picture_Array[0].word
+
+    let x = Math.floor(Math.random() * temp_Word_Array.length);
+
+
+
+    game_Word1.textContent = temp_Word_Array[x];
+
+    temp_Word_Array.splice(x, 1);
+
+
+    game_Image2.src = temp_Picture_Array[1].image;
+    game_Image2.height = 200;
+    game_Image2.width = 200;
+    game_Image2.alt = temp_Picture_Array[1].word
+
+    let y = Math.floor(Math.random() * temp_Word_Array.length);
+
+
+    game_Word2.textContent = temp_Word_Array[y];
+
+    temp_Word_Array.splice(y, 1);
+
+
+
+    game_Image3.src = temp_Picture_Array[2].image;
+    game_Image3.height = 200;
+    game_Image3.width = 200;
+    game_Image3.alt = temp_Picture_Array[2].word
+
+    let z = Math.floor(Math.random() * temp_Word_Array.length);
+
+
+    game_Word3.textContent = temp_Word_Array[z];
+
+    temp_Word_Array.splice(z, 1);
+
 }
 
 
 function restart_Game(evt) {
 
     x = 0;
+
+    game_Description.style.visibility = "visible";
+    end_Message.style.visibility = "hidden";
+
 
 
     change_Images();
@@ -185,7 +208,7 @@ function restart_Game(evt) {
 
 function quit_Game(evt) {
 
-
+    game_Description.style.visibility = "hidden";
 
     var game_Image1 = document.getElementsByClassName("pic1")[0];
     var game_Image2 = document.getElementsByClassName("pic2")[0];
@@ -296,9 +319,29 @@ function handleDrop(e) {
 
 function check_GameStatus() {
     if (x == 3) {
-        console.log("congrats");
-        game_Page.style.visibility = "hidden";
-        end_Page.style.visibility = "visible";
+        if (picture_Array.length <= 6) {
+
+            game_Description.style.visibility = "hidden";
+
+            end_Message.style.visibility = "visible";
+
+        }
+
+        else {
+
+
+            //game_Page.style.visibility = "hidden";
+            end_Page.style.visibility = "visible";
+
+
+
+        }
+
+
+
+
+
+
 
 
     }
