@@ -1,11 +1,21 @@
 class Picture {
-    constructor(image, word) {
-        this._image = image;
+    constructor(image1, image2, image3, word) {
+        this._image1 = image1;
+        this._image1 = image2;
+        this._image2 = image3;
         this._word = word;
     }
 
     get image() {
         return this._image;
+    }
+
+    get image1() {
+        return this._image1;
+    }
+
+    get image2() {
+        return this._image2;
     }
 
     get word() {
@@ -30,20 +40,38 @@ const config = {
 
 firebase.initializeApp(config);
 
+function checkCategory(){
+    let urlParams = new URLSearchParams(window.location.search);
+    let category = urlParams.get("category");
+    if (category != null){
+        return category
+    }
+    else{
+        return ""
+    }
+}
+
+let chosen_category = checkCategory();
+
 
 function retrieve_Database_Values() {
     picture_Array = [];
 
-    var ref = firebase.database().ref("/Categories/Fruits");
+    var ref = firebase.database().ref(`/Categories/${chosen_category}`);
     ref.once("value").then(function (snapshot) {
 
 
-        let fruits = snapshot.val();
+        let words = snapshot.val();
 
-        for (let i in fruits) {
-            var img = snapshot.child(i).child("img0").val();
+        for (let i in words) {
+            var img1 = snapshot.child(i).child("img0").val();
+            var img2 = snapshot.child(i).child("img1").val();
+            var img3 = snapshot.child(i).child("img2").val();
 
-            const picture = new Picture(img, i);
+            
+
+
+            const picture = new Picture(img1, img2, img3, i);
             picture_Array.push(picture);
         }
     });
@@ -73,12 +101,14 @@ function initialize_Game() {
 function start_Game(evt) {
     x = 0;
 
+    
+
     change_Images();
 
     play_Button.style.visibility = "hidden";
-
+    
     game_Description.style.visibility = "visible";
-
+    
     game_Page.style.visibility = "visible";
 
 
@@ -106,93 +136,101 @@ function change_Images() {
     let temp_Picture_Array = [];
     let temp_Word_Array = [];
 
+     
+    
+        for (i = 0; i < 3; i++) {
+          
+            let alpha = Math.floor(Math.random() * picture_Array.length);
+            
+            let temp = picture_Array[alpha];
 
+            
 
-    for (i = 0; i < 3; i++) {
+            picture_Array.splice(alpha, 1);
 
-        let alpha = Math.floor(Math.random() * picture_Array.length);
+             
+            
 
-        let temp = picture_Array[alpha];
+            if (seen_Pictures_Array.includes(temp)) {
+                temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
+            }
 
+              
+            
 
+            temp_Word_Array.push(temp.word);
+            temp_Picture_Array.push(temp);
+            seen_Pictures_Array.push(temp);
 
-        picture_Array.splice(alpha, 1);
-
-
-
-
-        if (seen_Pictures_Array.includes(temp)) {
-            temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
         }
+    
 
-
-        temp_Word_Array.push(temp.word);
-        temp_Picture_Array.push(temp);
-        seen_Pictures_Array.push(temp);
-
+  
+    for (i = 0; i< 3; i++ ) {
+      console.log(temp_Picture_Array[i].word);
     }
-
-
-
-    for (i = 0; i < 3; i++) {
-        console.log(temp_Picture_Array[i].word);
-    }
-
+    
     console.log(temp_Word_Array);
-
-
-
-    game_Image1.src = temp_Picture_Array[0].image;
+    
+   
+    
+    game_Image1.src = temp_Picture_Array[0].image1;
     game_Image1.height = 200;
     game_Image1.width = 200;
     game_Image1.alt = temp_Picture_Array[0].word
-
+        
     let x = Math.floor(Math.random() * temp_Word_Array.length);
 
-
-
+        
+        
     game_Word1.textContent = temp_Word_Array[x];
 
     temp_Word_Array.splice(x, 1);
 
-
-    game_Image2.src = temp_Picture_Array[1].image;
+  
+    game_Image2.src = temp_Picture_Array[1].image1;
     game_Image2.height = 200;
     game_Image2.width = 200;
     game_Image2.alt = temp_Picture_Array[1].word
 
     let y = Math.floor(Math.random() * temp_Word_Array.length);
 
-
+      
     game_Word2.textContent = temp_Word_Array[y];
 
     temp_Word_Array.splice(y, 1);
-
-
-
-    game_Image3.src = temp_Picture_Array[2].image;
+  
+    
+ 
+    game_Image3.src = temp_Picture_Array[2].image1;
     game_Image3.height = 200;
     game_Image3.width = 200;
     game_Image3.alt = temp_Picture_Array[2].word
 
     let z = Math.floor(Math.random() * temp_Word_Array.length);
 
-
+      
     game_Word3.textContent = temp_Word_Array[z];
 
     temp_Word_Array.splice(z, 1);
-
+    
+    
+    
 }
+
+
 
 
 function restart_Game(evt) {
 
     x = 0;
 
+
+    end_Page.style.visibility = "hidden";
     game_Description.style.visibility = "visible";
     end_Message.style.visibility = "hidden";
-
-
+    
+    
 
     change_Images();
 
@@ -208,7 +246,9 @@ function restart_Game(evt) {
 
 function quit_Game(evt) {
 
+    end_Message.style.visibility = "hidden";
     game_Description.style.visibility = "hidden";
+    
 
     var game_Image1 = document.getElementsByClassName("pic1")[0];
     var game_Image2 = document.getElementsByClassName("pic2")[0];
@@ -320,28 +360,28 @@ function handleDrop(e) {
 function check_GameStatus() {
     if (x == 3) {
         if (picture_Array.length <= 6) {
-
-            game_Description.style.visibility = "hidden";
-
-            end_Message.style.visibility = "visible";
-
+          
+          game_Description.style.visibility = "hidden";
+ 
+          end_Message.style.visibility = "visible";
+          
         }
-
+        
         else {
-
-
-            //game_Page.style.visibility = "hidden";
-            end_Page.style.visibility = "visible";
-
-
-
+          
+          
+          //game_Page.style.visibility = "hidden";
+          end_Page.style.visibility = "visible";
+          
+          
+          
         }
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
 
 
     }
@@ -414,3 +454,16 @@ var words = document.querySelectorAll('#pictures .pic3');
     word.addEventListener('drop', handleDrop, false);
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
