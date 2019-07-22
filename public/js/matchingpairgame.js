@@ -247,7 +247,7 @@ function restart_Game(evt) {
 function quit_Game(evt) {
 
     end_Message.style.visibility = "hidden";
-    //game_Description.style.visibility = "hidden";
+    game_Description.style.visibility = "hidden";
     
 
     var game_Image1 = document.getElementsByClassName("pic1")[0];
