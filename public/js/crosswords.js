@@ -49,11 +49,14 @@ $(() => {
       }
       else {
         $("[for='mode']").text("Text Mode")
-        resetBoard(false);
+        //resetBoard(false);
+
+        $("#crossword").html("<h1>Coming Soon!</h1>");
+        $(".hints").html("");
       }
     })
 
-    setBoard();
+    setBoard(true);
 })
 
 // function init: void -> void
@@ -255,7 +258,7 @@ function addWordToBoard(){
                     if (curCross.dir === 0){
                       var xIndex = curCross.x + m;
                       
-                      if (xIndex < 0 || xIndex > board.length){
+                      if (xIndex < 0 || xIndex >= board.length){
                         isMatch = false;
                         break;
                       }
@@ -510,7 +513,8 @@ function checkAnswer(){
 // Events
 
 function Shuffle(){
-  setBoard();
+  setBoard(true);
+  $("[for='mode']").text("Image Mode");
 }
 
 function Cheat(){
