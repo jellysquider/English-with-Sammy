@@ -399,7 +399,7 @@ var words = document.querySelectorAll('#words .word1');
 
     word.addEventListener('dragover', handleDragOver, false);
 
-    word.addEventListener('drop', handleDrop, false);
+
 
 });
 
@@ -409,7 +409,7 @@ var words = document.querySelectorAll('#words .word2');
 
     word.addEventListener('dragover', handleDragOver, false);
 
-    word.addEventListener('drop', handleDrop, false);
+
 
 
 });
@@ -420,7 +420,7 @@ var words = document.querySelectorAll('#words .word3');
 
     word.addEventListener('dragover', handleDragOver, false);
 
-    word.addEventListener('drop', handleDrop, false);
+
 
 });
 
