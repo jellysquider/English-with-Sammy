@@ -78,7 +78,7 @@ let chosen_category = checkCategory();
 function retrieve_Database_Values() {
     picture_Array = [];
 
-    var ref = firebase.database().ref(`/Categories/Fruits`);
+    var ref = firebase.database().ref(`/Categories/${chosen_category}`);
     ref.once("value").then(function (snapshot) {
 
         let words = snapshot.val();
