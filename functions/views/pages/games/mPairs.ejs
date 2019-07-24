@@ -2,8 +2,6 @@
 <html>
   <head>
     <% include ../../partials/header.ejs %>
-
-    <link rel="stylesheet" href="/css/matching.css">
   </head>
 
   <body>
@@ -34,9 +32,6 @@
       }
       .word1 {
         background-color: #ffffff;
-        position: absolute;
-        top: 70%;
-        left: 10%;
         width: 170px;
         margin: 15px;
         padding: 15px;
@@ -44,9 +39,6 @@
       }
       .word2 {
         background-color: #ffffff;
-        position: absolute;
-        top: 70%;
-        left: 37%;
         width: 170px;
         margin: 15px;
         padding: 15px;
@@ -54,9 +46,6 @@
       }
       .word3 {
         background-color: #ffffff;
-        position: absolute;
-        top: 70%;
-        left: 64%;
         width: 170px;
         margin: 15px;
         padding: 15px;
@@ -82,7 +71,7 @@
       .word-pic {
         object-fit: contain;
       }
-      
+
       #end_Page {
         text-align: center;
         visibility: hidden;
@@ -116,7 +105,7 @@
           </div>
           <h3 id = "end_Message" > CONGRATULATIONS YOU FINISHED ALL THE WORDS! </h3>
 
-          <div id = "pictures" >
+          <div id = "pictures" class="row justify-content-center" >
             <img class ="pic1 word-pic" src="https://via.placeholder.com/200"
             alt="pic1" style = "height: 200px; width 200px; margin: 15px;">
             <img class ="pic2 word-pic" src="https://via.placeholder.com/200"
@@ -125,7 +114,7 @@
             alt="pic3" style = "height: 200px; width 200px; margin: 15px;">
           </div>
 
-          <div id = "words" >
+          <div class= "row justify-content-center mt-5" id="words">
             <div class = "word1" draggable = "true" > Word 1</div>
             <div class = "word2" draggable = "true" > Word 2</div>
             <div class = "word3" draggable = "true" > Word 3</div>
