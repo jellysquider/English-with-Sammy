@@ -104,7 +104,7 @@ initialize_Game();
 // initializes all buttons and pages
 function initialize_Game() {
     document.getElementById("game_Page");
-    document.getElementById("end_Page")[0];
+    document.getElementById("continue_Page")[0];
 
     document.getElementById("play_Button").addEventListener("click", start_Game);
     document.getElementById("restart_Button").addEventListener("click", restart_Game);
@@ -257,7 +257,7 @@ function change_PictureWord3(temp_Picture_Array, temp_Word_Array) {
 // checks if the user successfully matched all pairs
 function check_GameStatus() {
     if (x == 3) {
-        if (picture_Array.length <= 6 {
+        if (picture_Array.length <= 6) {
             game_Description.style.visibility = "hidden";
             end_Message.style.visibility = "visible";
         }
