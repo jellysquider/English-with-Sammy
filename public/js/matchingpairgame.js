@@ -262,7 +262,7 @@ function check_GameStatus() {
             end_Message.style.visibility = "visible";
         }
         else {
-            end_Page.style.visibility = "visible";
+            continue_Page.style.visibility = "visible";
         }
     }
 }
