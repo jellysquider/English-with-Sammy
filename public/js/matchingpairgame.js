@@ -134,7 +134,7 @@ function continue_Game(evt) {
     change_Images();
 
     game_Page.style.visibility = "visible";
-    end_Page.style.visibility = "hidden";
+    continue_Page.style.visibility = "hidden";
 }
 
 
@@ -143,7 +143,7 @@ function continue_Game(evt) {
 function restart_Game(evt) {
     x = 0;
 
-    end_Page.style.visibility = "hidden";
+    continue_Page.style.visibility = "hidden";
     game_Description.style.visibility = "visible";
     end_Message.style.visibility = "hidden";
 
