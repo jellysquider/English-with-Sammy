@@ -78,13 +78,13 @@ function readFromDatabase() {
 
         let myValue = snapshot.val();
 
-        console.log(myValue)
+        //console.log(myValue)
 
 
         for (let key in myValue){
             all_words_in_database.push(key)
         }
-        console.log(all_words_in_database)
+        //console.log(all_words_in_database)
         collection = all_words_in_database;
         fillAndShuffleArray();
 
@@ -151,7 +151,7 @@ function fillAndShuffleArray() {
 
 //function invoked when user press 'play' button
 function startGame(evt) {
-    console.log("game start")
+    //console.log("game start")
 
     let heart_bar = document.getElementById("life_bar")
     let heart = `<img src = '/img/heart_icon.png' width = 100px>`
@@ -450,7 +450,7 @@ function typeCheck() { //function to check spelling.
                     }
                     document.getElementById("word-1-" + i).innerHTML = "";
                 } catch (e) {
-                    console.log("Quick End");
+                    //console.log("Quick End");
                 }
             }, 1500);
             correctDing();
@@ -476,7 +476,7 @@ function typeCheck() { //function to check spelling.
                         }
                         document.getElementById("word-2-" + i).innerHTML = "";
                     } catch (e) {
-                        console.log("Quick End");
+                        //console.log("Quick End");
                     }
                 }, 1500);
                 correctDing();

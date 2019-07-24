@@ -68,7 +68,7 @@ function retrieve_Database_Values() {
             var img2 = snapshot.child(i).child("img1").val();
             var img3 = snapshot.child(i).child("img2").val();
 
-            
+
 
 
             const picture = new Picture(img1, img2, img3, i);
@@ -101,14 +101,14 @@ function initialize_Game() {
 function start_Game(evt) {
     x = 0;
 
-    
+
 
     change_Images();
 
     play_Button.style.visibility = "hidden";
-    
+
     game_Description.style.visibility = "visible";
-    
+
     game_Page.style.visibility = "visible";
 
 
@@ -136,58 +136,58 @@ function change_Images() {
     let temp_Picture_Array = [];
     let temp_Word_Array = [];
 
-     
-    
+
+
         for (i = 0; i < 3; i++) {
-          
+
             let alpha = Math.floor(Math.random() * picture_Array.length);
-            
+
             let temp = picture_Array[alpha];
 
-            
+
 
             picture_Array.splice(alpha, 1);
 
-             
-            
+
+
 
             if (seen_Pictures_Array.includes(temp)) {
                 temp = picture_Array[Math.floor(Math.random() * picture_Array.length)];
             }
 
-              
-            
+
+
 
             temp_Word_Array.push(temp.word);
             temp_Picture_Array.push(temp);
             seen_Pictures_Array.push(temp);
 
         }
-    
 
-  
-    for (i = 0; i< 3; i++ ) {
-      console.log(temp_Picture_Array[i].word);
-    }
-    
-    console.log(temp_Word_Array);
-    
-   
-    
+
+
+    // for (i = 0; i< 3; i++ ) {
+    //   console.log(temp_Picture_Array[i].word);
+    // }
+    //
+    // console.log(temp_Word_Array);
+
+
+
     game_Image1.src = temp_Picture_Array[0].image1;
     game_Image1.height = 200;
     game_Image1.width = 200;
     game_Image1.alt = temp_Picture_Array[0].word
-        
+
     let x = Math.floor(Math.random() * temp_Word_Array.length);
 
-        
-        
+
+
     game_Word1.textContent = temp_Word_Array[x];
 
     temp_Word_Array.splice(x, 1);
 
-  
+
     game_Image2.src = temp_Picture_Array[1].image1;
     game_Image2.height = 200;
     game_Image2.width = 200;
@@ -195,13 +195,13 @@ function change_Images() {
 
     let y = Math.floor(Math.random() * temp_Word_Array.length);
 
-      
+
     game_Word2.textContent = temp_Word_Array[y];
 
     temp_Word_Array.splice(y, 1);
-  
-    
- 
+
+
+
     game_Image3.src = temp_Picture_Array[2].image1;
     game_Image3.height = 200;
     game_Image3.width = 200;
@@ -209,13 +209,13 @@ function change_Images() {
 
     let z = Math.floor(Math.random() * temp_Word_Array.length);
 
-      
+
     game_Word3.textContent = temp_Word_Array[z];
 
     temp_Word_Array.splice(z, 1);
-    
-    
-    
+
+
+
 }
 
 
@@ -229,8 +229,8 @@ function restart_Game(evt) {
     end_Page.style.visibility = "hidden";
     game_Description.style.visibility = "visible";
     end_Message.style.visibility = "hidden";
-    
-    
+
+
 
     change_Images();
 
@@ -248,7 +248,7 @@ function quit_Game(evt) {
 
     end_Message.style.visibility = "hidden";
     game_Description.style.visibility = "hidden";
-    
+
 
     var game_Image1 = document.getElementsByClassName("pic1")[0];
     var game_Image2 = document.getElementsByClassName("pic2")[0];
@@ -331,7 +331,7 @@ function handleDrop(e) {
 
 
     if (data != this.alt) {
-        console.log("not the same");
+        // console.log("not the same");
     }
 
     else {
@@ -360,28 +360,28 @@ function handleDrop(e) {
 function check_GameStatus() {
     if (x == 3) {
         if (picture_Array.length <= 6) {
-          
+
           game_Description.style.visibility = "hidden";
- 
+
           end_Message.style.visibility = "visible";
-          
+
         }
-        
+
         else {
-          
-          
+
+
           //game_Page.style.visibility = "hidden";
           end_Page.style.visibility = "visible";
-          
-          
-          
+
+
+
         }
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
 
     }
@@ -454,16 +454,3 @@ var words = document.querySelectorAll('#pictures .pic3');
     word.addEventListener('drop', handleDrop, false);
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-

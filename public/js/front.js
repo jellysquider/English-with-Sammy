@@ -84,14 +84,4 @@ $(function () {
 
         e.preventDefault();
     });
-
-
-    // =====================================================
-    //      SCROLL SPY
-    // =====================================================
-    $('body').scrollspy({
-        target: '#navbarSupportedContent',
-        offset: 80
-    });
-
 });

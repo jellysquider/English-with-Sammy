@@ -1,176 +1,153 @@
-<style>
-  body {
-    background: #D3D3D3;
-    font-family: Calibri;
-    color: #000000;
-  }
-  h1 {
-    font-weight: 300;
-  }
-  hr {
-    border: 1px solid black;
-  }
-  #game_description {
-    font-size: 20;
-    text-align: center;
-    font-weight: 500;
-  }
-  #play_Button {
-    height: 30px;
-    width: 100px;
-  }
-  .title_Page {
-    text-align: center;
-  }
-  #game_Page {
-    text-align: center;
-    visibility: hidden;
-  }
-  .word1 {
-    background-color: #ffffff;
-    position: absolute;
-    top: 70%;
-    left: 10%;
-    width: 170px;
-    height: 15px;
-    margin: 15px;
-    padding: 15px;
-    border: 1px solid black;
-  }
-  .word2 {
-    background-color: #ffffff;
-    position: absolute;
-    top: 70%;
-    left: 37%;
-    width: 170px;
-    height: 15px;
-    margin: 15px;
-    padding: 15px;
-    border: 1px solid black;
-  }
-  .word3 {
-    background-color: #ffffff;
-    position: absolute;
-    top: 70%;
-    left: 64%;
-    width: 170px;
-    height: 15px;
-    margin: 15px;
-    padding: 15px;
-    border: 1px solid black;
-  }
-  #quit_Button{
-    position : absolute;
-    top: 88%;
-    left: 30%;
-  }
-  #restart_Button {
-    position : absolute;
-    top: 88%;
-    right: 30%;
-  }
-  .pic1 {
-    height:200px;
-    weight:200px;
-    margin:15px;
-  }
-  #end_Page {
-    text-align: center;
-    visibility: hidden;
-  }
-  #continue_Button {
-    height: 30px;
-    width: 100px;
-  }
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/header.ejs %>
 
-  #end_Message {
+    <link rel="stylesheet" href="/css/matching.css">
+  </head>
 
-    font-size: 20;
-    text-align: center;
-    font-weight: 500;
+  <body>
+    <% include ../../partials/nav.ejs %>
 
-    visibility: hidden;
-  }
-</style>
+    <style>
+      h1 {
+        font-weight: 300;
+      }
+      hr {
+        border: 1px solid black;
+      }
 
+      .main {
+        margin-top: 200px;
+      }
+      #game_description {
+        font-size: 20;
+        text-align: center;
+        font-weight: 500;
+      }
+      .title_Page {
+        text-align: center;
+      }
+      #game_Page {
+        text-align: center;
+        visibility: hidden;
+      }
+      .word1 {
+        background-color: #ffffff;
+        position: absolute;
+        top: 70%;
+        left: 10%;
+        width: 170px;
+        margin: 15px;
+        padding: 15px;
+        border: 1px solid black;
+      }
+      .word2 {
+        background-color: #ffffff;
+        position: absolute;
+        top: 70%;
+        left: 37%;
+        width: 170px;
+        margin: 15px;
+        padding: 15px;
+        border: 1px solid black;
+      }
+      .word3 {
+        background-color: #ffffff;
+        position: absolute;
+        top: 70%;
+        left: 64%;
+        width: 170px;
+        margin: 15px;
+        padding: 15px;
+        border: 1px solid black;
+      }
+      #quit_Button{
+        position : absolute;
+        top: 88%;
+        left: 30%;
+      }
+      #restart_Button {
+        position : absolute;
+        top: 88%;
+        right: 30%;
+      }
+      /* .pic1 {
+        /* height:200px;
+        weight:200px;
+        margin:15px;
+        object-fit:contain;
+      } */
 
+      .word-pic {
+        object-fit: contain;
+      }
+      
+      #end_Page {
+        text-align: center;
+        visibility: hidden;
+      }
+      #continue_Button {
+        width: 100px;
+      }
 
-<div class = "main" >
-  <div class = "title_Page" >
+      #end_Message {
 
-    <h1 id = "game_Name" > Matching Pair Game </h1>
+        font-size: 20;
+        text-align: center;
+        font-weight: 500;
 
-    <button id ="play_Button"> Play </button>
-
-    <hr>
-
-  </div>
+        visibility: hidden;
+      }
+    </style>
 
 
-  <div id = "game_Page" >
+    <div class="container main">
+      <div class ="row justify-content-center mt-5">
+        <div class = "title_Page">
+          <h1 id = "game_Name"> Matching Pair Game</h1>
+          <hr>
+            <button type="button" class="btn btn-warning btn-lg" id="play_Button"> Play </button>
+        </div>
 
-    <h2 id = "game_Description" > Match the word with the picture! </h2>
-    <h3 id = "end_Message" > CONGRATULATIONS YOU FINISHED ALL THE WORDS! </h3>
+        <div id = "game_Page" >
+          <div id = "game_Description" class="alert alert-primary" role="alert">
+          Match the word with the picture!
+          </div>
+          <h3 id = "end_Message" > CONGRATULATIONS YOU FINISHED ALL THE WORDS! </h3>
 
-    <div id = "pictures" >
+          <div id = "pictures" >
+            <img class ="pic1 word-pic" src="https://via.placeholder.com/200"
+            alt="pic1" style = "height: 200px; width 200px; margin: 15px;">
+            <img class ="pic2 word-pic" src="https://via.placeholder.com/200"
+            alt="pic2" style = "height: 200px; width 200px; margin: 15px;">
+            <img class ="pic3 word-pic" src="https://via.placeholder.com/200"
+            alt="pic3" style = "height: 200px; width 200px; margin: 15px;">
+          </div>
 
-      <img class ="pic1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO3gAt81BsXnHnEvPpWBte_hY21CYqcV0WLGO99geq0cRxU6JpBw"
-      alt="Depressed Gudetama" style = "height: 200px; width 200px; margin: 15px;">
+          <div id = "words" >
+            <div class = "word1" draggable = "true" > Word 1</div>
+            <div class = "word2" draggable = "true" > Word 2</div>
+            <div class = "word3" draggable = "true" > Word 3</div>
+          </div>
+          <div class = "game_Buttons" >
+            <button type="button" class="btn btn-danger" id ="quit_Button"> Quit </button>
+            <button type="button" class="btn btn-info" id ="restart_Button"> Restart </button>
+          </div>
+        </div>
 
-      <img class ="pic2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8bDf1bc89kg6bStpluz-YP5SJMeesK-9PlL1BGJklpgZJAs0"
-      alt="pic2" style = "height: 200px; width 200px; margin: 15px;">
+        <div id = "end_Page" >
+          <h1 id = "game_Name" > Congratulations! You matched all pairs! </h1>
+          <button type="button" class="btn btn-success mt-4" id ="continue_Button"> Continue? </button>
+        </div>
 
-      <img class ="pic3" src="https://sdl-stickershop.line.naver.jp/products/0/0/1/5030/LINEStorePC/main.png?__=20161019"
-      alt="pic3" style = "height: 200px; width 200px; margin: 15px;">
-
+      </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
 
-
-    <div id = "words" >
-
-
-      <div class = "word1" draggable = "true" > Depressed Gudetama</div>
-
-      <div class = "word2" draggable = "true" > Tired Gudetama</div>
-
-      <div class = "word3" draggable = "true" > Happy Gudetama</div>
-
-    </div>
-
-
-    <div class = "game_Buttons" >
-
-
-
-        <button id ="quit_Button"> Quit </button>
-
-
-
-       <button id ="restart_Button"> Restart </button>
-
-    </div>
-
-  </div>
-
-
-
-  <div id = "end_Page" >
-
-
-    <h1 id = "game_Name" > Congratulations! You matched all pairs! </h1>
-
-
-    <button id ="continue_Button"> Continue? </button>
-
-  </div>
-
-
-
-
-</div>
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
-
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
-<script src="/js/matchingpairgame.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
+    <script src="/js/matchingpairgame.js"></script>
+  </body>
+</html>

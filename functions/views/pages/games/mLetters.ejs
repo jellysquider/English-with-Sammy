@@ -2,43 +2,12 @@
 <html>
   <head>
     <% include ../../partials/header.ejs %>
+
+    <link rel="stylesheet" href="/css/matching.css">
   </head>
 
   <body>
     <% include ../../partials/nav.ejs %>
-
-
-    <style>
-       body {
-        /* background-color: #f8f9fa; */
-      }
-      .game {
-        padding-top: 200px;
-      }
-      .drag-box {
-          float: left;
-          width: 75px;
-          overflow: hidden;
-          min-height: 50px;
-          min-width: 100px;
-          margin: 12px;
-          padding: 10px;
-          background-color:  #e2e2e2;
-          text-align: center;
-      }
-
-      .pictures {
-        margin: 10px;
-        padding:0;
-      }
-
-      .letterPic {
-        object-fit: cover;
-        max-height: 200px;
-      }
-
-    </style>
-
   <div class="container game">
     <div class="row justify-content-center">
         <div class="col-xl-5">
@@ -48,8 +17,11 @@
         </div>
     </div>
 
+    <div class="alert alert-primary text-center mt-5" role="alert">
+      In this game you have to drag the letters in order to form a word shown on the picture
+    </div>
     <!-- Play Button -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
       <button type="button" class="btn btn-warning btn-lg" onclick="Play()" id="playBtn">Play</button>
     </div>
     <!-- <p>Score: <text id="userScore">0</text></p> -->

@@ -55,7 +55,7 @@ function readFromDatabase() {
 
         all_words_in_database.push(key);
       });
-      console.log(all_words_in_database);
+      // console.log(all_words_in_database);
     });
     return all_words_in_database;
 }
@@ -70,7 +70,7 @@ function Play() {
   //databasePictures = new Array();
 
   createDragBoxes();
-  console.log("Playing! Invoked createDragBoxes()");
+  //console.log("Playing! Invoked createDragBoxes()");
 
 
   document.getElementById("playBtn").style.display = "none";
@@ -90,16 +90,16 @@ function Play() {
 
 function createDragBoxes() {
   var wordIndex = Math.floor(Math.random() * collection.length);
-  console.log("word index: ", wordIndex);
+  // console.log("word index: ", wordIndex);
   var word = collection[wordIndex];
-  console.log("word: ", word);
+  // console.log("word: ", word);
 
   getDatabasePictures(word).then(() => {
     if(wordsUserSaw.includes(word)) {
       //return createDragBoxes();
     }
     wordsUserSaw.push(word);
-  
+
     wordShuffle = word.shuffle();
     //console.log("shuffled: " + wordShuffle);
     wordLength =  collection[wordIndex].length;
@@ -116,16 +116,15 @@ function createDragBoxes() {
       letterDragBox.innerHTML = letter.toUpperCase();
       //dragBox.appendChild(letterDragBox);
       document.getElementById("drag-boxes").appendChild(letterDragBox);
-  
+
       acceptingBox = document.createElement("div");
       acceptingBox.setAttribute("class", "drag-box");
       acceptingBox.setAttribute('ondrop', "actualDrop(event)");
       acceptingBox.setAttribute('ondragover', "allowDrop(event)");
       acceptingBox.id = "letter:" + word.toUpperCase().charAt(i);
       document.getElementById("drop-boxes").appendChild(acceptingBox);
-  
+
     }
-    console.log('?')
     next_done = false;
   });
 
@@ -145,7 +144,7 @@ function getDatabasePictures(word) {
           // add it to the databasePictures array
           databasePictures.push(childAttr.val());
 
-          console.log("databasePictures: " + databasePictures);
+          //console.log("databasePictures: " + databasePictures);
           randomPicture = databasePictures[Math.floor(Math.random()*databasePictures.length)];
           wordPicture = document.getElementById("letter-picture");
           wordPicture.setAttribute("class", "mx-auto my-5 d-block letterPic");
@@ -198,9 +197,6 @@ function actualDrop(event) {
     document.getElementById("drag-box" + idStr).style.visibility = "hidden";
 
   }
-  else {
-    console.log("No!")
-  }
 }
 
 function drop(event) {
@@ -215,26 +211,23 @@ next_done = false
 async function Next() {
   //if (userScoreInt == wordLength) {
   //message001.innerHTML = "Congratulations!";
-    
+
     if(!next_done){
     next_done = true;
-  
+
     userScoreInt = 0;
     //userScore.innerHTML = 0;
-  
+
     var removeDragBoxes = document.getElementById("drag-boxes");
     while (removeDragBoxes.firstChild) {
         removeDragBoxes.removeChild(removeDragBoxes.firstChild);
     }
-  
+
     var removeDropBoxes = document.getElementById("drop-boxes");
     while (removeDropBoxes.firstChild) {
         removeDropBoxes.removeChild(removeDropBoxes.firstChild);
     }
     createDragBoxes();
-
-    console.log('next called');
-  
     //message001.innerHTML = "";
     //}
   }

@@ -5,12 +5,18 @@
   <% include ../partials/header.ejs %>
 </head>
 
+<style media="screen">
+  body {
+    background-color: #f8f9fa;
+  }
+</style>
+
 <body>
   <% include ../partials/nav.ejs %>
 
     <!--::review_part start::-->
     <section id="vocabularyGames">
-        <div class="container">
+        <div class="container vocabulary-games">
             <div class="row justify-content-center">
                 <div class="col-xl-5">
                     <div class="section_tittle text-center">
@@ -18,22 +24,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="row mb-5">
-              <div class="col-lg-8 mx-auto">
-                   Custom rounded search bar with input group
-                  <form action="">
-                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-                      <div class="input-group">
-                        <input type="search" placeholder="What would you like to practice?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
-                        <div class="input-group-append">
-                          <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div> -->
 
               <div class="filters">
                   <ul>
@@ -69,24 +59,24 @@
                   </div>
                 </a>
 
-                <a href="games/matchingLetters?category=Pets">
-                  <div class="card px-0 mt-4 all matchingLetters">
+                <a href="games/typingRacer?category=Pets">
+                  <div class="card px-0 mt-4 all typingRacer">
                     <img class="card-img-top" src="/img/pets.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Pets</h5>
-                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                      <p class="card-text"><small class="text-muted">Typing Racer</small></p>
                       <p class="card-text">Learn words related to house pets such as a dog, a cat, a guinea pig, a hamster, a mouse, etc.</p>
                     </div>
                   </div>
                 </a>
 
-                <a href="games/matchingPictures?category=Fruits">
-                  <div class="card px-0 mt-4 all matchingPictures" style="">
+                <a href="games/matchingLetters?category=Fruits">
+                  <div class="card px-0 mt-4 all matchingLetters" style="">
                     <img class="card-img-top" src="/img/fruits.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Fruits #2</h5>
-                      <p class="card-text"><small class="text-muted">Matching Pictures</small></p>
-                      <p class="card-text">Learn words such as a tangerine, a strawberry, a lemon, grape, a mango etc.</p>
+                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                      <p class="card-text">Learn words such as a tangerine, a strawberry, a lemon, grape, a mango, a kiwi etc.</p>
                     </div>
                   </div>
                 </a>
@@ -124,11 +114,11 @@
                   </div>
                 </div>
 
-                  <div class="card card-disabled px-0 mt-4 all typingRacer">
+                  <div class="card card-disabled px-0 mt-4 all matchingLetters">
                     <img class="card-img-top" src="/img/accessories.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Accessories (Coming Soon!)</h5>
-                      <p class="card-text"><small class="text-muted">Typing Racer</small></p>
+                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
                       <p class="card-text">Learn words related to accessories such as glasses, a purse, a wallet, a lipstick, a watch, etc.</p>
                     </div>
                   </div>
@@ -142,11 +132,11 @@
                     </div>
                   </div>
 
-                  <div class="card card-disabled px-0 mt-4 all matchingLetters">
+                  <div class="card card-disabled px-0 mt-4 all matchingPictures">
                     <img class="card-img-top" src="/img/clothing.jpg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Clothing (Coming Soon!)</h5>
-                      <p class="card-text"><small class="text-muted">Matching Letters</small></p>
+                      <p class="card-text"><small class="text-muted">Matching Pictures</small></p>
                       <p class="card-text">Learn words related to clothing such as a hat, pants, a T-shirt, shorts, a hoodie, a coat,  etc.</p>
                     </div>
                   </div>
@@ -180,21 +170,6 @@
 
     </section>
     <!--::blog_part end::-->
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright_part_text text-center">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="footer-text m-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
     <!-- footer part end-->
 
     <!-- jquery plugins here-->

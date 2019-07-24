@@ -1,0 +1,32 @@
+body {
+ background-color: #f8f9fa;
+}
+.game {
+ margin-top: 200px;
+ padding: 50px;
+ height: auto;
+ border-radius: 7%!important;
+ border: 5px outset #17a2b8;
+}
+.drag-box {
+   float: left;
+   width: 75px;
+   overflow: hidden;
+   min-height: 50px;
+   min-width: 100px;
+   margin: 12px;
+   padding: 10px;
+   background-color: #ffaf039e;
+   text-align: center;
+}
+
+.pictures {
+ margin: 10px;
+ padding:0;
+}
+
+.letterPic {
+ object-fit: cover;
+ max-height: 200px;
+ /* background-color: #f8f9fa; */
+}
